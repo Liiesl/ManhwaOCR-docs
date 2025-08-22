@@ -1,28 +1,19 @@
 ---
-title: Getting Started 
-description: Learn how to install and configure My Desktop App with our step-by-step guide.
+title: Getting Started
+description: Your first steps with the Manhwa OCR Tool, from installation to creating your first project.
 order: 1
+tags: docs
 ---
 
-# Getting Started
+# Getting Started with Manhwa OCR Tool
 
-Follow these simple steps to install and run the application.
+Welcome! This guide will walk you through the essential first steps to get the Manhwa OCR Tool up and running. We'll cover installation, launching the application, and navigating the Home Window to create or open your first project.
 
-## 1. Download
+Follow these steps in order to begin:
 
-Download the latest version from our official website for your operating system (Windows, macOS, or Linux).
+1.  **[Installation](/getting-started/installation/):** Download and install the application.
+2.  **[Launching the Application](/getting-started/launching-the-app/):** Start the tool for the first time.
+3.  **[The Home Window](/getting-started/the-home-window/):** Create a new project or open an existing one.
+4.  **[Troubleshooting](/getting-started/errors/):** Solutions for common issues you might encounter.
 
-## 2. Installation
-
-Run the installer and follow the on-screen instructions.
-
-```bash
-# Example for Linux
-sudo dpkg -i my-desktop-app.deb
-```
-
-## 3. First Launch
-
-Once installed, launch the app from your applications menu. You should see the main dashboard.
-
-For more detailed technical information, check out the [API Reference](/api-reference).
+Once you have a project open, you'll be ready to dive into the main workspace, which is covered in the comprehensive **[User Manual](/user-manual/)**.

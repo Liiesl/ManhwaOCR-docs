@@ -170,6 +170,9 @@ main#content {
     padding-bottom: 0.3em;
     margin-top: 1em;
 }
+#content a{
+    color: #B07178;
+}
 #content code {
     background-color: var(--code-bg);
     padding: 0.2em 0.4em;
