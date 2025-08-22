@@ -8,6 +8,7 @@ module.exports = function(eleventyConfig) {
     // Copy the 'assets' directory to the output folder.
     // Eleventy will automatically pick up the new 'assets/js' subdirectory.
     eleventyConfig.addPassthroughCopy("assets");
+    eleventyConfig.addPassthroughCopy("robots.txt");
 
     // REMOVED: The addPlugin call for TOC is gone.
     // eleventyConfig.addPlugin(pluginTOC, ...);

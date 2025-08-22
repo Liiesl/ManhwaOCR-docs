@@ -1,0 +1,7 @@
+# Allow all search engine crawlers to access the entire site.
+User-agent: *
+Allow: /
+
+# Point crawlers to your sitemap for better indexing (optional but recommended)
+# Replace the URL with your actual domain name once you have a sitemap.
+# Sitemap: https://your-app-docs.com/sitemap.xml
