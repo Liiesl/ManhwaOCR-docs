@@ -1,11 +1,12 @@
 ---
-// your-new-docs-site/src/components/LeftSidebar.astro
-
 import { getNavLinks } from '../lib/navigation.ts';
 import NavList from './NavList.astro';
+import SearchWrapper from './SearchWrapper.astro';
 
 const navGroups = await getNavLinks();
 ---
+<SearchWrapper />
+
 <nav>
     {navGroups.map(group => (
       <div class="nav-group">

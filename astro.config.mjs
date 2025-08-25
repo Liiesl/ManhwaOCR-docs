@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 
 import sitemap from '@astrojs/sitemap';
 
+import preact from '@astrojs/preact';
+
 // https://astro.build/config
 export default defineConfig({
   // Your final domain for the site.
@@ -19,5 +21,5 @@ export default defineConfig({
       },
   },
 
-  integrations: [sitemap()],
+  integrations: [sitemap(), preact()],
 });
