@@ -1,0 +1,29 @@
+---
+// your-new-docs-site/src/components/TableOfContents.astro
+
+import type { MarkdownHeading } from 'astro';
+
+interface Props {
+    headings: MarkdownHeading[];
+}
+
+const { headings } = Astro.props;
+
+// Filter for h2 and h3 headings, like the original JS did
+const filteredHeadings = headings.filter(h => h.depth === 2 || h.depth === 3);
+---
+{/* Only render the TOC if there are headings to display */}
+{filteredHeadings.length > 0 && (
+    <>
+        <h3>On this page</h3>
+        <nav id="toc-nav">
+            <ul>
+                {filteredHeadings.map(heading => (
+                    <li class={`toc-level-h${heading.depth}`}>
+                        <a href={`#${heading.slug}`}>{heading.text}</a>
+                    </li>
+                ))}
+            </ul>
+        </nav>
+    </>
+)}

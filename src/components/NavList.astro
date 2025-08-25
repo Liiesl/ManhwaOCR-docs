@@ -1,0 +1,44 @@
+---
+// your-new-docs-site/src/components/NavList.astro
+
+import type { NavItem } from '../lib/navigation.ts';
+
+interface Props {
+    items: NavItem[];
+}
+
+const { items } = Astro.props;
+const { pathname } = Astro.url;
+
+// Normalize pathname to always have a trailing slash for consistent matching
+const currentPath = pathname.endsWith('/') ? pathname : `${pathname}/`;
+---
+<ul>
+    {items.map(item => {
+        // Normalize item URL as well
+        const itemPath = item.url.endsWith('/') ? item.url : `${item.url}/`;
+
+        const isCurrentPage = itemPath === currentPath;
+        const isActiveParent = itemPath !== '/' && currentPath.startsWith(itemPath);
+
+        return (
+            <li>
+                {item.children.length > 0 ? (
+                    <details class="nav-collapsible" open={isActiveParent}>
+                        <summary>
+                            <a href={item.url} class:list={{ active: isCurrentPage }}>
+                                {item.title}
+                            </a>
+                        </summary>
+                        <!-- Recursively call this component for children -->
+                        <Astro.self items={item.children} />
+                    </details>
+                ) : (
+                    <a href={item.url} class:list={{ active: isCurrentPage }}>
+                        {item.title}
+                    </a>
+                )}
+            </li>
+        )
+    })}
+</ul>
