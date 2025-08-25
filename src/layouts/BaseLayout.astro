@@ -1,0 +1,53 @@
+---
+// your-new-docs-site/src/layouts/BaseLayout.astro
+
+import LeftSidebar from '../components/LeftSidebar.astro';
+import TableOfContents from '../components/TableOfContents.astro';
+
+// 'headings' is automatically provided by Astro from the markdown content
+const { frontmatter, headings } = Astro.props;
+const { title, description } = frontmatter;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{title} | My Desktop App Docs</title>
+    <meta name="description" content={description || 'Official documentation for My Desktop App.'}>
+
+    <link rel="stylesheet" href="/assets/style.css">
+    <!-- 
+        REMOVED: The Highlight.js CDN link.
+        Astro's built-in Shiki handles syntax highlighting and injects the necessary styles.
+    -->
+</head>
+<body>
+    <div class="container">
+        
+        <aside class="sidebar">
+            <h1 class="site-title"><a href="/">My Desktop App</a></h1>
+            <LeftSidebar />
+        </aside>
+
+        <main id="content">
+            <!-- The content of your markdown files goes here -->
+            <slot />
+        </main>
+
+        <aside class="toc-sidebar">
+            <!-- 
+                UPDATED: We now render the TOC at build-time using a component.
+                This is more performant and doesn't require client-side JavaScript.
+            -->
+            <TableOfContents headings={headings} />
+        </aside>
+
+    </div>
+    <!-- 
+        REMOVED: The <script src="/assets/main.js"> tag.
+        The Table of Contents is no longer generated on the client.
+    -->
+</body>
+</html>

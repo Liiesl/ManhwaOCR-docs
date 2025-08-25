@@ -1,0 +1,16 @@
+---
+// your-new-docs-site/src/components/LeftSidebar.astro
+
+import { getNavLinks } from '../lib/navigation.ts';
+import NavList from './NavList.astro';
+
+const navGroups = await getNavLinks();
+---
+<nav>
+    {navGroups.map(group => (
+      <div class="nav-group">
+        <h3 class="nav-group-title">{group.title}</h3>
+        <NavList items={group.pages} />
+      </div>
+    ))}
+</nav>
