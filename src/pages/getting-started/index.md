@@ -1,14 +1,14 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Getting Started
-description: Your first steps with the Manhwa OCR Tool, from installation to creating your first project.
+description: Your first steps with the Easy Scanlate, from installation to creating your first project.
 order: 1
 tags: docs
 ---
 
-# Getting Started with Manhwa OCR Tool
+# Getting Started with Easy Scanlate
 
-Welcome! This guide will walk you through the essential first steps to get the Manhwa OCR Tool up and running. We'll cover installation, launching the application, and navigating the Home Window to create or open your first project.
+Welcome! This guide will walk you through the essential first steps to get the Easy Scanlate up and running. We'll cover installation, launching the application, and navigating the Home Window to create or open your first project.
 
 Follow these steps in order to begin:
 

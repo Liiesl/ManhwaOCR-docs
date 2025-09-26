@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Installation
-description: How to install the Manhwa OCR Tool on your system.
+description: How to install the Easy Scanlate on your system.
 order: 2
 ---
 
 # Installation
 
-This guide covers the two methods for installing the Manhwa OCR Tool. For the best stability, performance, and access to the latest updates, we strongly recommend running the application directly from its source code.
+This guide covers the two methods for installing the Easy Scanlate. For the best stability, performance, and access to the latest updates, we strongly recommend running the application directly from its source code.
 
 | Method                       | Best For                                                                  | Difficulty |
 | ---------------------------- | ------------------------------------------------------------------------- | ---------- |

@@ -1,30 +1,8 @@
 ---
 import Search from './Search.tsx';
+import { getNavLinks } from '../lib/navigation.ts';
 
-// Define the exact shape of our frontmatter. This is our "contract".
-interface Frontmatter {
-    title: string;
-    description?: string;
-}
-
-// Let Astro.glob return its default type. We will handle the specifics below.
-const allDocs = await Astro.glob('/src/pages/**/*.md');
-
-const searchablePages = allDocs
-  // Use the `as` keyword for a direct type assertion inside the filter.
-  .filter(doc => (doc.frontmatter as Frontmatter).title && doc.url)
-  // Now, map over the filtered results.
-  .map(doc => {
-    // We can safely assert the type again, as we've already filtered.
-    const frontmatter = doc.frontmatter as Frontmatter;
-    return {
-      url: doc.url!, // We know url exists because we filtered for it.
-      frontmatter: {
-        title: frontmatter.title,
-        description: frontmatter.description || '', // Fallback to an empty string.
-      },
-    }
-  });
+const navGroups = await getNavLinks();
 ---
 
-<Search client:load pages={searchablePages} />
+<Search client:load navGroups={navGroups} />

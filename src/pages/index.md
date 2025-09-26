@@ -1,13 +1,13 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: Documentation
-description: An introduction to My Desktop App and its core features.
+description: An introduction to Easy Scanlate and its core features.
 order: 1
 ---
 
 # Documentation
 
-Welcome to the official documentation for My Desktop App. This guide will walk you through installation, configuration, and advanced features.
+Welcome to the official documentation for Easy Scanlate. This guide will walk you through installation, configuration, and advanced features.
 
 ## Core Concepts
 

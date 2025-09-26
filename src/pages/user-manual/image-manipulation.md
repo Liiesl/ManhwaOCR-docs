@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Image Manipulation
-description: Learn how to stitch multiple image pages together or split single pages in the Manhwa OCR Tool.
+description: Learn how to stitch multiple image pages together or split single pages in the Easy Scanlate.
 order: 6
 ---
 
 # Image Manipulation: Stitching & Splitting
 
-The Manhwa OCR Tool provides powerful image manipulation features to help you organize your pages for optimal OCR and editing. These tools are accessed via the `Action Menu` (three bars icon) in the [Image View overlay](/user-manual/index/#left-panel-image-view).
+The Easy Scanlate provides powerful image manipulation features to help you organize your pages for optimal OCR and editing. These tools are accessed via the `Action Menu` (three bars icon) in the [Image View overlay](/user-manual/index/#left-panel-image-view).
 
 ## Stitching Images
 

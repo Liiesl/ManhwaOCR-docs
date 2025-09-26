@@ -1,31 +1,85 @@
 // /src/components/Search.tsx
 
-import { useState, useEffect, useRef } from 'preact/hooks';
+import { useState, useEffect, useRef, useMemo } from 'preact/hooks';
 import Fuse from 'fuse.js';
 
-interface Page {
+// Types to match the data structure from getNavLinks in navigation.ts
+interface NavItem {
   url: string;
-  frontmatter: {
-    title: string;
-    description?: string;
-  };
+  title: string;
+  children: NavItem[];
+}
+
+interface NavGroup {
+  title:string;
+  pages: NavItem[];
 }
 
 interface Props {
-  pages: Page[];
+  navGroups: NavGroup[];
 }
 
-export default function Search({ pages }: Props) {
+// A flattened search entry for Fuse.js
+interface SearchablePage {
+    url: string;
+    title: string;
+    breadcrumbs: string[];
+}
+
+// Recursive component to render the search result tree
+function SearchResultItem({ item }: { item: NavItem }) {
+    const hasChildren = item.children && item.children.length > 0;
+
+    return (
+        <li>
+            {hasChildren ? (
+                // Use <details> for expandable sections, default to open for search results
+                <details open>
+                    <summary>
+                        <a href={item.url}>{item.title}</a>
+                    </summary>
+                    <ul>
+                        {item.children.map(child => <SearchResultItem key={child.url} item={child} />)}
+                    </ul>
+                </details>
+            ) : (
+                <a href={item.url}>{item.title}</a>
+            )}
+        </li>
+    );
+}
+
+export default function Search({ navGroups }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState<Page[]>([]);
+  const [results, setResults] = useState<NavGroup[]>([]);
   const searchInput = useRef<HTMLInputElement>(null);
 
-  const fuse = new Fuse(pages, {
-    keys: ['frontmatter.title', 'frontmatter.description'],
+  // 1. Flatten the navigation tree to a list for Fuse.js to search
+  const searchablePages = useMemo(() => {
+    const pages: SearchablePage[] = [];
+    const flatten = (items: NavItem[], breadcrumbs: string[]) => {
+        items.forEach(item => {
+            const newBreadcrumbs = [...breadcrumbs, item.title];
+            pages.push({
+                url: item.url,
+                title: item.title,
+                breadcrumbs: breadcrumbs
+            });
+            if (item.children.length > 0) {
+                flatten(item.children, newBreadcrumbs);
+            }
+        });
+    };
+    navGroups.forEach(group => flatten(group.pages, [group.title]));
+    return pages;
+  }, [navGroups]);
+
+  const fuse = useMemo(() => new Fuse(searchablePages, {
+    keys: ['title', 'breadcrumbs'],
     includeScore: true,
     threshold: 0.4,
-  });
+  }), [searchablePages]);
 
   useEffect(() => {
     if (isOpen) {
@@ -53,9 +107,29 @@ export default function Search({ pages }: Props) {
       return;
     }
 
-    const searchResults = fuse.search(query).map(result => result.item);
-    setResults(searchResults);
-  }, [query]);
+    const searchResults = fuse.search(query);
+    const matchingUrls = new Set(searchResults.map(result => result.item.url));
+
+    const filterTree = (nodes: NavItem[]): NavItem[] => {
+        return nodes
+          .map(node => {
+            const children = filterTree(node.children);
+            if (children.length > 0 || matchingUrls.has(node.url)) {
+              // Return a new object to avoid mutating original state
+              return { ...node, children };
+            }
+            return null;
+          })
+          .filter((node): node is NavItem => node !== null);
+      };
+
+    const filteredNavGroups = navGroups.map(group => ({
+        ...group,
+        pages: filterTree(group.pages),
+    })).filter(group => group.pages.length > 0);
+
+    setResults(filteredNavGroups);
+  }, [query, navGroups, fuse]);
 
   return (
     <div>
@@ -77,14 +151,18 @@ export default function Search({ pages }: Props) {
               class="search-input"
             />
             <ul class="search-results">
-              {results.map(page => (
-                <li key={page.url}>
-                  <a href={page.url}>
-                    <h4>{page.frontmatter.title}</h4>
-                    <p>{page.frontmatter.description}</p>
-                  </a>
-                </li>
-              ))}
+              {results.length > 0 ? (
+                results.map(group => (
+                    <li class="search-result-group" key={group.title}>
+                        <h3 class="search-result-group-title">{group.title}</h3>
+                        <ul>
+                            {group.pages.map(item => <SearchResultItem key={item.url} item={item} />)}
+                        </ul>
+                    </li>
+                ))
+              ) : (
+                query.trim() !== '' && <li class="no-results">No results found.</li>
+              )}
             </ul>
           </div>
         </div>

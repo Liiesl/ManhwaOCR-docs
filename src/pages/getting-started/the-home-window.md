@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: The Home Window
-description: An overview of the Manhwa OCR Tool's home window for creating, opening, and managing projects.
+description: An overview of the Easy Scanlate's home window for creating, opening, and managing projects.
 order: 4
 ---
 
@@ -9,7 +9,7 @@ order: 4
 
 The Home Window is the first interactive screen you'll see after the application launches. It serves as your starting point for all project-related tasks.
 
-<img src="/assets/images/home-window.png" alt="Manhwa OCR Tool Home Window" width="700">
+<img src="/assets/images/home-window.png" alt="Easy Scanlate Home Window" width="700">
 *(Placeholder: Replace with actual screenshot of your Home Window)*
 
 ## Main Actions

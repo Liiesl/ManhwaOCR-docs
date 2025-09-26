@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Settings
-description: Configure application preferences, OCR parameters, and Gemini API key in the Manhwa OCR Tool.
+description: Configure application preferences, OCR parameters, and Gemini API key in the Easy Scanlate.
 order: 9
 ---
 

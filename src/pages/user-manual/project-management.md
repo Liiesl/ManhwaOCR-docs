@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Project Management
-description: How to save your project and manage text profiles in the Manhwa OCR Tool.
+description: How to save your project and manage text profiles in the Easy Scanlate.
 order: 2
 ---
 

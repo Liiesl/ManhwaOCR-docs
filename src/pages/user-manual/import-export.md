@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Import & Export
-description: Learn how to import and export project data, OCR results, translations, and rendered images in the Manhwa OCR Tool.
+description: Learn how to import and export project data, OCR results, translations, and rendered images in the Easy Scanlate.
 order: 8
 ---
 
 # Import & Export
 
-The Manhwa OCR Tool offers versatile import and export options, allowing you to integrate with other tools, share your work, or create final, translated images. Access these features via the `Import/Export Menu` (three bars icon) in the Right Panel's top controls.
+Easy Scanlate offers versatile import and export options, allowing you to integrate with other tools, share your work, or create final, translated images. Access these features via the `Import/Export Menu` (three bars icon) in the Right Panel's top controls.
 
 ## 1. Export OCR Results
 

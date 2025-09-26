@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Troubleshooting
-description: Find solutions to common errors and issues with the Manhwa OCR Tool.
+description: Find solutions to common errors and issues with the Easy Scanlate.
 order: 5
 ---
 
 # Troubleshooting Common Errors
 
-This page provides solutions for common issues you may encounter while installing or running the Manhwa OCR Tool.
+This page provides solutions for common issues you may encounter while installing or running the Easy Scanlate.
 
 ## GUI Library Conflict: PySide6 vs. PyQt5
 
@@ -19,7 +19,7 @@ When you launch the application using `python main.py`, it immediately shows an 
 
 #### Cause
 
-The Manhwa OCR Tool is built using the **PySide6** library for its graphical user interface. This error occurs if your Python environment has the conflicting **PyQt5** library installed. The two cannot coexist and the application is designed to safely exit instead of crashing.
+The Easy Scanlate is built using the **PySide6** library for its graphical user interface. This error occurs if your Python environment has the conflicting **PyQt5** library installed. The two cannot coexist and the application is designed to safely exit instead of crashing.
 
 #### Solution
 

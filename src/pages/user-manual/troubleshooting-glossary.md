@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Troubleshooting & Glossary
-description: Common issues, solutions, and key terminology for the Manhwa OCR Tool.
+description: Common issues, solutions, and key terminology for the Easy Scanlate.
 order: 10
 ---
 
@@ -52,7 +52,7 @@ Here are solutions to some common problems you might encounter.
 *   **`for-translate` Markdown:** A custom `.md` format used for exporting clean text for external translation and re-importing it.
 *   **Gemini:** A family of powerful AI models created by Google, used in this tool for translation.
 *   **Image View:** The left panel in the Main Application Window where images and their text boxes are displayed.
-*   **MMTL File (.mmtl):** The custom project file format for the Manhwa OCR Tool. It's a zip archive containing all images, text data, profiles, and styles.
+*   **MMTL File (.mmtl):** The custom project file format for the Easy Scanlate. It's a zip archive containing all images, text data, profiles, and styles.
 *   **OCR (Optical Character Recognition):** The technology that converts text within images into machine-readable text.
 *   **Profile:** A distinct version of the text for your project. Common profiles include "Original" (raw OCR), "User Edit" (your corrections), and "Gemini Translation" (AI translation).
 *   **Rendered Image:** A final output image where the text from a selected profile has been "burned" or drawn onto the original image.

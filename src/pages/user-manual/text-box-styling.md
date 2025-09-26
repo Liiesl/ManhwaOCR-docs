@@ -1,7 +1,7 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Text Box Styling
-description: Customize the appearance of OCR text boxes (shape, font, color) in the Manhwa OCR Tool.
+description: Customize the appearance of OCR text boxes (shape, font, color) in the Easy Scanlate.
 order: 5
 ---
 

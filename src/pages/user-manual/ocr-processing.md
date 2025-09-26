@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: OCR Processing
-description: Learn how to use batch and manual OCR, and configure OCR parameters in the Manhwa OCR Tool.
+description: Learn how to use batch and manual OCR, and configure OCR parameters in the Easy Scanlate.
 order: 3
 ---
 
 # OCR Processing
 
-The Manhwa OCR Tool uses a customized implementation of EasyOCR to detect and extract text from your images. You can run OCR on all images at once (Batch OCR) or on specific, user-defined areas (Manual OCR).
+The Easy Scanlate uses a customized implementation of EasyOCR to detect and extract text from your images. You can run OCR on all images at once (Batch OCR) or on specific, user-defined areas (Manual OCR).
 
 ## 1. Batch OCR
 

@@ -1,7 +1,7 @@
 ---
 layout: ../layouts/BaseLayout.astro
 title: FAQ
-description: Frequently asked questions about My Desktop App.
+description: Frequently asked questions about Easy Scanlate.
 order: 2
 ---
 
@@ -11,9 +11,9 @@ Here you'll find answers to common questions about installation, features, and t
 
 ### General
 
-**Q: Is My Desktop App free?**
+**Q: Is Easy Scanlate free?**
 
-A: Yes, My Desktop App is free for personal use. For commercial licensing, please see our pricing page.
+A: Yes, Easy Scanlate is free for personal use. For commercial licensing, please see our pricing page.
 
 **Q: What operating systems are supported?**
 

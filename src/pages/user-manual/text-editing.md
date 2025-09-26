@@ -1,13 +1,13 @@
 ---
 layout: ../../layouts/BaseLayout.astro
 title: Text Editing & Management
-description: Detailed guide on editing, combining, deleting, and finding/replacing text in the Manhwa OCR Tool.
+description: Detailed guide on editing, combining, deleting, and finding/replacing text in the Easy Scanlate.
 order: 4
 ---
 
 # Text Editing & Management
 
-The Manhwa OCR Tool provides a suite of features for refining your OCR results. All of these actions are primarily managed through the `Results Widget` in the Right Panel.
+The Easy Scanlate provides a suite of features for refining your OCR results. All of these actions are primarily managed through the `Results Widget` in the Right Panel.
 
 ## 1. The Results Widget
 

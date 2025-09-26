@@ -7,7 +7,7 @@ order: 7
 
 # AI Translation (Gemini)
 
-The Manhwa OCR Tool integrates with the Gemini API to provide powerful, automated translation of your OCR text. This feature allows you to quickly translate large volumes of text into various languages, with options for contextual refinement.
+Easy Scanlate integrates with the Gemini API to provide powerful, automated translation of your OCR text. This feature allows you to quickly translate large volumes of text into various languages, with options for contextual refinement.
 
 ## 1. API Key Setup
 
