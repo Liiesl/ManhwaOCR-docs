@@ -9,8 +9,7 @@ order: 4
 
 The Home Window is the first interactive screen you'll see after the application launches. It serves as your starting point for all project-related tasks.
 
-<img src="/assets/images/home-window.png" alt="Easy Scanlate Home Window" width="700">
-*(Placeholder: Replace with actual screenshot of your Home Window)*
+<img src="/assets/Screenshot 2025-09-27 014209.png" alt="Easy Scanlate Home Window" width="700">
 
 ## Main Actions
 

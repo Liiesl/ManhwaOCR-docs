@@ -13,7 +13,6 @@ Once installed, you can launch the "Easy Scanlate" from your system's applicatio
 
 Upon launch, you will first see a **Splash Screen**. This screen indicates that the application is initializing its components in the background. You will see status messages appear at the bottom, such as "Loading application settings..." and "Finding recent projects..."
 
-<img src="/assets/images/splash-screen.png" alt="Easy Scanlate Splash Screen" width="400">
-*(Placeholder: Replace with actual screenshot of your splash screen)*
+<img src="/assets/Screenshot 2025-09-27 014001.png" alt="Easy Scanlate Splash Screen" width="400">
 
 The splash screen provides visual feedback that the app is starting up correctly. Once initialization is complete, you will automatically be taken to the **Home Window**, your central hub for managing projects.

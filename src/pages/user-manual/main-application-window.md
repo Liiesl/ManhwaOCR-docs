@@ -9,24 +9,26 @@ order: 2
 
 Once a project is loaded, the Main Application Window becomes your primary workspace. It features a two-panel layout designed for an efficient workflow.
 
-<img src="/assets/images/main-application-window.png" alt="Easy Scanlate Main Application Window" width="900">
-*(Placeholder: Replace with actual screenshot of your Main Application Window)*
+<img src="/assets/Screenshot 2025-09-27 014312.png" alt="Easy Scanlate Main Application Window" width="800">
 
 ## Left Panel (Image View)
 
 The Image View displays your project's images sequentially. This is an interactive canvas where OCR-detected text boxes are rendered directly on the images.
-
-*   **Navigation:** Use your mouse wheel or the scrollbar to move through the images.
-*   **Text Box Interaction:**
-    *   **Select:** Click a text box to select it. It will be highlighted with a blue frame, and its properties will load in the Right Panel.
-    *   **Move:** Drag a selected text box to reposition it.
-    *   **Resize:** Drag the handles on the corners and sides of a selected text box.
-    *   **Rotate:** Drag the rotation handle (circular arrow) above a selected text box.
-    *   **Perspective Transform:** Hold `Ctrl` while dragging a corner handle to apply perspective distortion.
-*   **Overlay Controls:** A floating overlay at the bottom-center provides quick access buttons:
-    *   **Scroll to Top/Bottom:** Instantly navigate to the beginning or end of your image list.
-    *   **Action Menu (three bars icon):** Opens a menu for image manipulation tools like [Stitch](../image-manipulation/#stitching-images) and [Split](../image-manipulation/#splitting-images).
-    *   **Save:** Quickly save your project progress.
+*   **Top Controls**
+    *   **Settings (cog icon):** Opens the application [settings dialog](../settings/).
+    *   **Progress Bar** Indicating Proress of Process OCR.
+*   **Image Area**
+    *   **Navigation:** Use your mouse wheel or the scrollbar to move through the images.
+    *   **Text Box Interaction:**
+        *   **Select:** Click a text box to select it. It will be highlighted with a blue frame, and its properties will load in the Right Panel.
+        *   **Move:** Drag a selected text box to reposition it.
+        *   **Resize:** Drag the handles on the corners and sides of a selected text box.
+        *   **Rotate:** Drag the rotation handle (circular arrow) above a selected text box.
+        *   **Perspective Transform:** Hold `Ctrl` while dragging a corner handle to apply perspective distortion.
+    *   **Overlay Controls:** A floating overlay at the bottom-center provides quick access buttons:
+        *   **Scroll to Top/Bottom:** Instantly navigate to the beginning or end of your image list.
+        *   **Action Menu (three bars icon):** Opens a menu for image manipulation tools like [Stitch](../image-manipulation/#stitching-images) and [Split](../image-manipulation/#splitting-images).
+        *   **Save:** Quickly save your project progress.
 
 <img src="/assets/images/image-view-with-controls.png" alt="Image View with Text Boxes and Overlay Controls" width="600">
 *(Placeholder: Replace with actual screenshot of the Image View with selected text box and overlay buttons)*
@@ -39,7 +41,6 @@ The Right Panel contains all the tools for managing your project's data, text, a
 *(Placeholder: Replace with actual screenshot of the Right Panel)*
 
 *   **Top Controls:**
-    *   **Settings (cog icon):** Opens the application [settings dialog](../settings/).
     *   **Process OCR:** Starts the [batch OCR process](../ocr-processing/#batch-ocr) for all images.
     *   **Stop OCR:** Stops an ongoing OCR process.
     *   **Manual OCR:** Toggles [Manual OCR mode](../ocr-processing/#manual-ocr).

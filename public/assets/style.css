@@ -3,6 +3,7 @@
 :root {
     --bg-color: #222831;
     --text-color: #E0E1DD;
+    --text-secondary: #cbd5e4;
     --primary-color: #B07178;
     --border-color: #4A515C; /* Darker border for better contrast */
     --code-bg: #393E46;
@@ -219,7 +220,7 @@ main#content {
     padding: 0;
 }
 #content blockquote {
-    border-left: 4px solid var(--border-color);
+    border-left: 4px solid var(--text-secondary);
     padding-left: 1rem;
     color: #a0a8b4;
     margin-left: 0;

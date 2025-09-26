@@ -7,29 +7,73 @@ order: 2
 
 # Installation
 
-This guide covers the two methods for installing the Easy Scanlate. For the best stability, performance, and access to the latest updates, we strongly recommend running the application directly from its source code.
+This guide covers the two methods for installing Easy Scanlate. For the vast majority of users, the direct executable installer is the recommended method. It is stable, simple, and includes an automatic downloader for required libraries.
 
-| Method                       | Best For                                                                  | Difficulty |
-| ---------------------------- | ------------------------------------------------------------------------- | ---------- |
-| **1. From Source Code**      | **All users.** The most stable and reliable method for running the app.   | Medium     |
-| **2. Via Executable File**   | Quick testing only. This version is experimental and may be unstable.     | Easy       |
+| Method | Best For | Difficulty |
+| :--- | :--- | :--- |
+| **1. Via Windows Installer** | **All users.** The simplest and most reliable way to get started. | Easy |
+| **2. From Source Code** | Developers, advanced users, or those on other operating systems. | Medium |
 
 ---
 
-## 1. From Source Code (Recommended Method)
+## 1. Via Windows Installer (Recommended Method)
 
-This method ensures you have the correct dependencies for your system and gives you immediate access to the latest updates and bug fixes.
+This is the most straightforward way to install the application. The installer handles setting up shortcuts, file associations, and the application's core files. Currently, an official installer is only available for **Windows**.
+
+### Installation Steps
+
+1.  **Download:** Go to the project's official **[GitHub Releases Page](https://github.com/kha-white/manhwa-ocr-tool/releases)** and download the latest `EasyScanlate-Installer.exe`.
+2.  **Install:** Run the `.exe` installer. It will guide you through the standard installation process.
+3.  **Finish Installation:** Complete the setup, but **do not run the application yet**.
+
+### Crucial Step: Add Antivirus Exclusion (BEFORE First Launch)
+
+> **IMPORTANT:** You must complete this step before you run the application for the first time. If you do not, your antivirus software (especially Windows Defender) will likely quarantine or **delete the main executable file (`main.exe`)**, preventing the application from starting.
+
+**Why does this happen?**
+This is a **false positive**. The application is built using a tool called Nuitka, which compiles Python code into an executable. The methods used by this compiler are sometimes incorrectly flagged as suspicious by antivirus programs.
+
+**How to Add an Exclusion to Windows Defender:**
+
+1.  Open the **Start Menu**, type `Windows Security`, and open the app.
+2.  Go to **Virus & threat protection**.
+3.  Under "Virus & threat protection settings," click **Manage settings**.
+4.  Scroll down to the "Exclusions" section and click **Add or remove exclusions**.
+5.  Click the **+ Add an exclusion** button and select **Folder**.
+6.  In the file dialog that appears, navigate to the installation directory. The default location is:
+    `C:\Program Files\EasyScanlate`
+7.  Select the `EasyScanlate` folder and click **Select Folder**.
+
+By adding this exclusion, you ensure that Windows Defender will not interfere with the application's files.
+
+### First-Time Launch: Automatic Library Download
+
+After you have added the antivirus exclusion, you can safely launch the application for the first time.
+
+Easy Scanlate will check for a critical dependency: the **PyTorch** library.
+
+*   If PyTorch is not found, the application will prompt you to download it.
+*   **Important:** This is a large download (over 1.8 GB, requiring ~4 GB of disk space when unpacked). Please ensure you have a stable internet connection and sufficient disk space before proceeding.
+*   The application may ask for administrator privileges to install these files correctly. It will offer to restart itself as an administrator automatically.
+
+This one-time download process is fully automated. Once it is complete, the application will ask to be restarted, and subsequent launches will be immediate.
+
+---
+
+## 2. From Source Code (Alternative Method)
+
+This method is for developers, users on operating systems other than Windows, or those who want access to the very latest updates between official releases. It requires installing Python and Git manually.
 
 ### Prerequisites
 
 Before proceeding, ensure you have **Python** and **Git** installed on your system.
 
-#### A. Install Python (3.8+ Recommended)
+#### A. Install Python (3.12+ Recommended)
 
 1.  **Download:** Go to the official Python website: **[python.org/downloads/](https://www.python.org/downloads/)**
 2.  **Run Installer:** Launch the installer.
 3.  **Important (Windows):** On the first page of the installer, you must check the box labeled **"Add Python to PATH"** or **"Add python.exe to PATH"**. This step is crucial for running Python from the command line.
-    ![Add Python to PATH checkbox](https://docs.python.org/3/using/windows/_images/launcher-add-python-to-path.png)
+    ![Add Python to PATH checkbox](/assets/0_7nOyowsPsGI19pZT.png)
 4.  Complete the installation using the default settings.
 
 #### B. Install Git
@@ -66,12 +110,16 @@ If you are a developer and prefer to keep project dependencies isolated, you can
 
 ```bash
 # Create the virtual environment
-# On Windows: python -m venv venv
-# On macOS/Linux: python3 -m venv venv
+# On Windows: 
+python -m venv venv
+# On macOS/Linux: 
+python3 -m venv venv
 
 # Activate it (must be done each time you open a new terminal)
-# On Windows: .\venv\Scripts\activate
-# On macOS/Linux: source venv/bin/activate
+# On Windows: 
+.\venv\Scripts\activate
+# On macOS/Linux: 
+source venv/bin/activate
 ```
 A `(venv)` prefix will appear in your terminal prompt when it's active. All subsequent `pip install` commands will apply only to this environment.
 
@@ -112,29 +160,3 @@ python main.py
 # On macOS or Linux
 python3 main.py
 ```
-
----
-## 2. Via Executable (Alpha / Unstable)
-
-> **Warning:** Pre-compiled executables are currently in an **alpha** stage. They are intended for testing only and may be broken, lack features, or experience critical errors. For a stable experience, please use the "From Source Code" method above.
-
-1.  **Download:** Go to the project's official **[GitHub Releases Page](https://github.com/kha-white/manhwa-ocr-tool/releases)** and download the latest package for your operating system.
-2.  **Install:**
-    *   **Windows:** Run the `.exe` installer or extract the portable `.zip` file and run the executable inside.
-    *   **macOS:** Open the `.dmg` file and drag the application icon into your "Applications" folder.
-
----
-
-## Common Installation Issues
-
-### `command not found` (e.g., `git`, `python`, `pip`)
-
-This error typically indicates one of two problems:
-1.  The program (Git or Python) is not installed. Please review the **Prerequisites** section.
-2.  **(Windows)** The program was not added to your system's PATH variable during installation. For Python, the easiest solution is to uninstall and reinstall it, ensuring the **"Add Python to PATH"** checkbox is selected.
-
-### GUI Library Conflict (PyQt5 vs. PySide6)
-
-The application is built with `PySide6`. If the conflicting `PyQt5` library is installed on your system, the application may fail to launch. The tool is designed to detect this issue and display a detailed error message with a "Copy Commands" button.
-
-If you encounter this, follow the on-screen instructions or see our **[Troubleshooting Guide](/getting-started/errors/)** for a step-by-step solution.
