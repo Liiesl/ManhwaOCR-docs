@@ -41,7 +41,7 @@ This is a **false positive**. The application is built using a tool called Nuitk
 4.  Scroll down to the "Exclusions" section and click **Add or remove exclusions**.
 5.  Click the **+ Add an exclusion** button and select **Folder**.
 6.  In the file dialog that appears, navigate to the installation directory. The default location is:
-    `C:\Program Files\EasyScanlate`
+    `C:\Program Files\EasyScanlate` or `C:\Program Files (x86)\EasyScanlate` 
 7.  Select the `EasyScanlate` folder and click **Select Folder**.
 
 By adding this exclusion, you ensure that Windows Defender will not interfere with the application's files.
