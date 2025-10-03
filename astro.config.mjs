@@ -9,7 +9,7 @@ import preact from '@astrojs/preact';
 // https://astro.build/config
 export default defineConfig({
   // Your final domain for the site.
-  // site: 'https://example.com',
+  site: 'https://docs.easyscanlate.site',
 
   markdown: {
       shikiConfig: {
