@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/BaseLayout.astro
+layout: ../../layouts/BaseLayout.astro
 title: Workflows
 description: Step-by-step guides and tutorials for common Easy Scanlate workflows.
 order: 3

@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/BaseLayout.astro
+layout: ../../layouts/BaseLayout.astro
 title: Your First Project
 description: A complete step-by-step tutorial for creating, editing, and exporting your first Easy Scanlate project.
 order: 2

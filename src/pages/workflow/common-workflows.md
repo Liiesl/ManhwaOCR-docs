@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/BaseLayout.astro
+layout: ../../layouts/BaseLayout.astro
 title: Common Workflows
 description: Optimized workflows for specific project types and scenarios in Easy Scanlate.
 order: 3

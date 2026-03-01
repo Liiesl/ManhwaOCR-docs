@@ -1,5 +1,5 @@
 ---
-layout: ../layouts/BaseLayout.astro
+layout: ../../layouts/BaseLayout.astro
 title: Custom Fonts
 description: How to add and use custom fonts in Easy Scanlate for professional-looking text.
 order: 12
