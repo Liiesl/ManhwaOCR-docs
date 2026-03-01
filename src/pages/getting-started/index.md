@@ -8,7 +8,7 @@ tags: docs
 
 # Getting Started with Easy Scanlate
 
-Welcome! This guide will walk you through the essential first steps to get the Easy Scanlate up and running. We'll cover installation, launching the application, and navigating the Home Window to create or open your first project.
+Welcome! This guide will walk you through the essential first steps to get Easy Scanlate up and running. We'll cover installation, launching the application, and navigating the Home Window to create or open your first project.
 
 Follow these steps in order to begin:
 

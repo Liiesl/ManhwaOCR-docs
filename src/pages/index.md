@@ -25,16 +25,28 @@ New to Easy Scanlate? This is the place to begin. The introductory guide provide
 
 ---
 
+### ➤ Workflows & Tutorials
+
+Hands-on guides for specific scenarios and complete walkthroughs. Perfect for learning by doing.
+
+*   **[Your First Project](/workflow/your-first-project/):** A complete step-by-step tutorial from installation to final export.
+*   **[Common Workflows](/workflow/common-workflows/):** Optimized workflows for webtoons, multi-chapter projects, quick OCR, and collaboration.
+
+---
+
 ### ➤ User Manual
 
 Dive deep into the application's features with the comprehensive user manual. Learn how to leverage the full power of the tool to optimize your workflow.
 
+*   **[Main Application Window](/user-manual/main-application-window/):** Learn the layout and navigation of the primary workspace.
+*   **[Project Management](/user-manual/project-management/):** Manage text versions using profiles and understand the project file structure.
 *   **[OCR Processing](/user-manual/ocr-processing/):** Automatically detect and extract text from your images using Batch OCR or target specific areas with Manual OCR.
-*   **[Text Editing & Management](/user-manual/text-editing/):** Edit, combine, delete, and find/replace text efficiently using the Results Widget.
-*   **[AI Translation (Gemini)](/user-manual/ai-translation/):** Integrate with the Google Gemini API to get fast and context-aware translations for your project.
+*   **[Text Editing & Management](/user-manual/text-editing/):** Edit, combine, delete, and manage text efficiently using the Results Widget.
 *   **[Text Box Styling](/user-manual/text-box-styling/):** Customize the appearance of text with detailed controls for fonts, colors, backgrounds, and shapes.
 *   **[Image Manipulation](/user-manual/image-manipulation/):** Easily stitch multiple pages into a single long strip or split large images into individual panels.
+*   **[AI Translation](/user-manual/ai-translation/):** Integrate with Google Gemini or Mistral AI to get fast and context-aware translations for your project.
 *   **[Import & Export](/user-manual/import-export/):** Export your work as final rendered images or share text data with translators using custom formats.
+*   **[Settings](/user-manual/settings/):** Configure OCR parameters, AI translation providers, appearance, and keyboard shortcuts.
 
 ---
 
@@ -42,5 +54,4 @@ Dive deep into the application's features with the comprehensive user manual. Le
 
 Encountered an issue? This section provides solutions to common problems and defines key terminology used throughout the application and its documentation.
 
-*   **[Troubleshooting Guide](/getting-started/errors/):** Find solutions for common errors, such as GUI library conflicts, OCR failures, and performance issues.
-*   **[Glossary](/troubleshooting-glossary/):** A reference for key terms like OCR, Profiles, MMTL files, and more.
+*   **[Troubleshooting & Glossary](/user-manual/troubleshooting-glossary/):** Find solutions for common errors and a reference for key terms like OCR, Profiles, MMTL files, and more.

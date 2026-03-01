@@ -16,8 +16,9 @@ The Home Window is the first interactive screen you'll see after the application
 The panel on the left provides the primary actions for managing your projects:
 
 *   **New Project:** Creates a new project from a folder of images.
-*   **Open Project:** Opens a previously saved project from a `.mmtl` file.
 *   **Import from WFWF:** Imports a project from the external "What-If World Flow" (WFWF) format, useful for migrating from other tools.
+*   **Open Project:** Opens a previously saved project from a `.mmtl` file.
+*   **Settings:** Opens the application settings dialog.
 
 ## Recent Projects
 

@@ -1,88 +1,98 @@
 ---
 layout: ../../layouts/BaseLayout.astro
-title: AI Translation (Gemini)
-description: Use Google Gemini to translate your OCR text, manage translation profiles, and refine results.
-order: 7
+title: AI Translation
+description: Use Google Gemini or Mistral AI to translate your OCR text with an integrated chat interface.
+order: 8
 ---
 
-# AI Translation (Gemini)
+# AI Translation
 
-Easy Scanlate integrates with the Gemini API to provide powerful, automated translation of your OCR text. This feature allows you to quickly translate large volumes of text into various languages, with options for contextual refinement.
+Easy Scanlate integrates with **Google Gemini** and **Mistral AI** APIs to provide automated translation of your OCR text. The translation feature uses a chat-style interface where you can interact with the AI and monitor translation progress in real-time.
 
 ## 1. API Key Setup
 
-Before you can use AI Translation, you must configure your Gemini API key.
+Before using AI Translation, configure your API key in Settings.
 
 1.  Go to `Settings (Ctrl+,)` from the menu bar or click the `Settings` (cog icon) button.
-2.  Navigate to the `Gemini API` tab.
-3.  **Gemini API Key:**
-    *   If you don't have an API key, you can get one from [Google AI Studio](https://ai.google.dev/) (a Google account is required).
+2.  Navigate to the `AI Translation` tab.
+3.  **Select Provider:** Choose between **Gemini** or **Mistral** from the provider dropdown.
+4.  **API Key:**
+    *   For **Gemini**: Get one from [Google AI Studio](https://ai.google.dev/) (a Google account is required).
+    *   For **Mistral**: Get one from [Mistral AI Console](https://console.mistral.ai/) (an account is required).
     *   Enter your API key into the designated field.
-4.  **Gemini Model:** Select your preferred Gemini `Model` from the dropdown (e.g., `gemini-1.5-flash`). Different models offer varying performance, cost, and output quality.
+5.  **Model:** Select your preferred model from the dropdown. Available models include:
+    *   **Gemini:** `gemini-2.5-flash`, `gemini-2.5-pro`, `gemini-2.5-flash-lite`, `gemini-2.0-flash`, `gemini-2.0-flash-lite`, `gemma-3-27b-it`, `gemma-3n-e4b-it`
+    *   **Mistral:** `mistral-small-latest`, `mistral-medium-latest`, `mistral-large-latest`
 
-## 2. Launching the Translation Window
+## 2. Using the Translation Chat
 
-Once your API key is configured, launch the Translation Window by clicking the `AI Translation` button at the bottom-right of the Main Application Window.
+Once your API key is configured, the Translation Chat widget appears in the right panel of the Main Application Window.
 
-### Translation Window Overview
+### Translation Chat Interface
 
-The Translation Window provides a multi-column view of your text alongside a chat interface for interacting with Gemini.
+The chat interface provides a conversational way to interact with the AI translation service.
 
-<img src="/assets/images/translation-window.png" alt="Translation Window Overview" width="1000">
-*(Placeholder: Replace with actual screenshot of the Translation Window)*
+#### Chat History Area
 
-#### Left Panel (Comparison View)
+The main area displays the conversation between you and the AI:
 
-This panel displays your source text and translation columns side-by-side, allowing for easy comparison.
+*   **Your Messages:** Show your translation requests
+*   **AI Responses:** Show the translation results with streaming updates
+*   **Error Messages:** Display any issues that occur during translation
 
-*   **Source Profile:** Use the dropdown at the top to select which existing [profile](/user-manual/project-management/#managing-profiles) (e.g., "Original", "User Edit 1") will be used as the input for translation.
-*   **Translation Columns:** Each column represents a target language.
-    *   Add more columns using the `+` button in the header to translate into multiple languages simultaneously or compare different versions.
-    *   Select the target language for each column using its dropdown menu (e.g., "English", "Japanese").
-*   **Row Selection:**
-    *   **Click:** Selects a single row.
-    *   **Ctrl+Click:** Toggles the selection of a row.
-    *   **Shift+Click:** Selects a range of rows.
-    *   **Header Checkbox:** Toggles selection for all rows.
-    *   Selected rows are highlighted with a distinct background color.
+#### Control Panel
 
-#### Right Panel (Chat Interface)
+Located at the bottom of the chat widget:
 
-This panel is for interacting with the Gemini API. You input prompts and view the translation responses here.
+**Model Selection Bar:**
+*   **Provider:** Switch between Gemini and Mistral
+*   **Model:** Select the specific model to use for translation
 
-*   **Prompt Input:** Enter your instructions for Gemini. Be specific to guide the translation (e.g., "Translate to casual English," "Keep Japanese honorifics").
-    *   **Target Language Hint:** The prompt box automatically suggests the target language from your selected column to help you formulate your prompt.
-    *   **Send Shortcut:** Use `Ctrl+Enter` to send the prompt.
-*   **Target Profile Selector:** A dropdown menu above the `Send` button. **Crucially, select which translation column on the left will receive the AI's output.**
-*   **Send Button:** Initiates the translation. Its icon changes based on your selection:
-    *   **Paper Plane (Translate All):** Appears when all rows are selected. Starts a full translation.
-    *   **Refresh Arrow (Retranslate Selected):** Appears when a subset of rows is selected. Starts a re-translation for only those rows.
-*   **Chat History:** Displays your prompts and Gemini's responses, including streaming updates and any error messages.
+**Translation Controls:**
+*   **Target Language:** Choose the language to translate into (e.g., "English", "Japanese", "Chinese (Simplified)", "Korean", etc.)
+*   **Progress Bar:** Shows real-time translation progress
 
-#### Bottom Bar
+**Options:**
+*   **Retranslate selected only:** When checked, only selected OCR results will be re-translated (requires rows to be selected in the main view)
 
-*   **Gemini Model:** Shows the currently selected model. You can change it here for specific tasks.
-*   **Progress Bar:** Shows the real-time progress of the translation job.
-*   **Apply to Project Button:** Saves the selected translations from the comparison columns to your main project.
-*   **Close Button:** Closes the Translation Window.
+**Translate Button:**
+*   Paper plane icon to initiate translation
+*   **Keyboard Shortcut:** Press `Ctrl+Enter` to send
 
 ## 3. Generating Translations
 
-1.  **Select Source:** In the Left Panel, choose the `Source:` profile containing the text you want to translate.
-2.  **Select Target:** Choose the target translation column. If needed, add a new one with the `+` button. Ensure the `Target Profile Selector` in the chat panel matches this column.
-3.  **Write Prompt:** In the chat input, type your translation instructions. For example: `Translate only the Korean text to formal English, keeping all other text as is.`
-4.  **Initiate Translation:**
-    *   **For a full translation:** Ensure all rows are selected in the comparison view, then click the `Send` button (paper plane icon).
-    *   **For re-translation of specific rows:** Select only the rows you want to re-translate, then click the `Send` button (refresh arrow icon). This method cleverly includes context from surrounding (unselected) text in the prompt to Gemini, significantly improving the accuracy and coherence of the refined translation.
-5.  **Monitor Progress:** Gemini's response will stream into the chat history, and the `Progress Bar` will show activity. The translated text will populate the target column in the Left Panel as it's generated.
+1.  **Select Target Language:** Choose your desired target language from the dropdown.
+2.  **Select Provider/Model:** Ensure the correct provider and model are selected.
+3.  **Choose Translation Mode:**
+    *   **Full Translation:** Uncheck "Retranslate selected only" to translate all visible OCR results
+    *   **Selected Only:** Check "Retranslate selected only" and select specific rows in the main view to re-translate only those entries
+4.  **Initiate Translation:** Click the translate button or press `Ctrl+Enter`
+5.  **Monitor Progress:** The AI's response will stream into the chat history, and the progress bar will show activity.
 
-## 4. Applying Translations to Your Project
+## 4. Translation Results
 
-After you are satisfied with the generated translations, you must apply them to your project to save them.
+When translation completes:
 
-1.  **Review and Select:** In the Left Panel, use the checkboxes in each row to select the translations you want to keep.
-    *   If a row is **checked**, its text from the translation column will be saved to the new profile.
-    *   If a row is **unchecked**, its text will revert to the original `Source Profile` text when saved. This allows you to cherry-pick the best translations.
-2.  Click the `Apply to Project` button in the bottom bar.
-3.  A new profile (e.g., "Gemini Translation (English)") will be created in your main project, containing the selected translations.
-4.  The Translation Window will close, and you can now switch to this new profile in the Main Application Window using the [Profile Selector](/user-manual/project-management/#managing-profiles).
+1.  A new profile is automatically created with the name format: `{Provider} Translation ({Target Language})`
+2.  The translated text is parsed and stored in this profile
+3.  A completion message appears in the chat
+4.  The new profile becomes available in the [Profile Selector](/user-manual/project-management/#managing-profiles) in the main window
+
+You can then switch to this profile to view and edit the translated text in the main application window.
+
+## 5. Tips for Best Results
+
+*   **Provider Selection:** Mistral offers significantly higher free tier limits (1 billion tokens/month) compared to Gemini (20 requests per model per day). Gemini may provide different translation styles for certain languages.
+*   **Model Selection:** Use flash models for faster, cost-effective translations; use pro/large models for higher quality when needed
+*   **Context:** The AI receives all OCR text from your project, so it can use context from surrounding text for better translations
+*   **Retranslation:** Use the "Retranslate selected only" option to refine specific problematic entries without re-translating everything
+
+## 6. Troubleshooting
+
+| Issue | Solution |
+|-------|----------|
+| "API Key Missing" error | Verify your API key is entered in Settings > AI Translation |
+| "No Data" warning | Ensure OCR has been performed and results are visible |
+| "No Content" warning | Check that OCR results contain actual text (not just whitespace) |
+| Translation fails | Check your internet connection and API key validity |
+| Slow translation | Try a faster model (e.g., gemini-2.5-flash-lite or mistral-small-latest) |
