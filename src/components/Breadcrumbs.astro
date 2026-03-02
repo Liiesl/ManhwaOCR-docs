@@ -1,0 +1,91 @@
+---
+// src/components/Breadcrumbs.astro
+// Displays clickable breadcrumb navigation for the current page
+
+import { getNavLinks, type NavItem } from '../lib/navigation.ts';
+
+const { pathname } = Astro.url;
+const navGroups = await getNavLinks();
+
+// Build a lookup map of all pages by URL
+const pageMap = new Map<string, NavItem>();
+
+function collectPages(items: NavItem[]) {
+  for (const item of items) {
+    pageMap.set(item.url, item);
+    if (item.children?.length) {
+      collectPages(item.children);
+    }
+  }
+}
+
+// Collect all pages from all nav groups
+for (const group of navGroups) {
+  collectPages(group.pages);
+}
+
+// Build breadcrumb trail
+interface BreadcrumbItem {
+  title: string;
+  url: string;
+}
+
+const breadcrumbs: BreadcrumbItem[] = [{ title: 'Home', url: '/' }];
+
+// Find current page info
+const currentPage = pageMap.get(pathname) || pageMap.get(pathname.replace(/\/$/, ''));
+
+if (currentPage) {
+  // Find which section this page belongs to
+  for (const group of navGroups) {
+    const findInGroup = (items: NavItem[], parent?: NavItem): boolean => {
+      for (const item of items) {
+        if (item.url === currentPage.url) {
+          // Add parent (section index) if exists and isn't the current page
+          if (parent && parent.url !== currentPage.url) {
+            breadcrumbs.push({ title: parent.title, url: parent.url });
+          }
+          return true;
+        }
+        if (item.children?.length) {
+          if (findInGroup(item.children, item)) {
+            // Add the parent (section) if not already added
+            if (breadcrumbs.length === 1) {
+              breadcrumbs.push({ title: item.title, url: item.url });
+            }
+            return true;
+          }
+        }
+      }
+      return false;
+    };
+
+    if (findInGroup(group.pages)) {
+      break;
+    }
+  }
+
+  // Add current page (only if not an index page that duplicates section name)
+  const lastBreadcrumb = breadcrumbs[breadcrumbs.length - 1];
+  if (lastBreadcrumb?.url !== currentPage.url) {
+    breadcrumbs.push({ title: currentPage.title, url: currentPage.url });
+  }
+}
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+  <ol class="breadcrumb-list">
+    {breadcrumbs.map((crumb, index) => {
+      const isLast = index === breadcrumbs.length - 1;
+      return (
+        <li class="breadcrumb-item">
+          {isLast ? (
+            <span class="breadcrumb-current" aria-current="page">{crumb.title}</span>
+          ) : (
+            <a href={crumb.url} class="breadcrumb-link">{crumb.title}</a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>

@@ -1,0 +1,79 @@
+---
+// src/components/PageNavigation.astro
+// Previous/Next page navigation within the same section
+
+import { getNavLinks, type NavItem } from '../lib/navigation.ts';
+
+const { pathname } = Astro.url;
+const navGroups = await getNavLinks();
+
+interface PageInfo {
+  title: string;
+  url: string;
+}
+
+let prevPage: PageInfo | null = null;
+let nextPage: PageInfo | null = null;
+
+// Flatten pages within each section and find prev/next
+for (const group of navGroups) {
+  const sectionPages: PageInfo[] = [];
+  
+  function collectPages(items: NavItem[]) {
+    for (const item of items) {
+      sectionPages.push({ title: item.title, url: item.url });
+      if (item.children?.length) {
+        collectPages(item.children);
+      }
+    }
+  }
+  
+  collectPages(group.pages);
+  
+  // Find current page in this section
+  const currentIndex = sectionPages.findIndex(
+    p => p.url === pathname || p.url === pathname.replace(/\/$/, '')
+  );
+  
+  if (currentIndex !== -1) {
+    // Found in this section
+    prevPage = currentIndex > 0 ? sectionPages[currentIndex - 1] : null;
+    nextPage = currentIndex < sectionPages.length - 1 ? sectionPages[currentIndex + 1] : null;
+    break;
+  }
+}
+---
+
+{(prevPage || nextPage) && (
+  <nav class="page-navigation" aria-label="Page navigation">
+    <div class="page-nav-links">
+      {prevPage ? (
+        <a href={prevPage.url} class="page-nav-link page-nav-prev">
+          <span class="page-nav-direction">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M9.78 12.78a.75.75 0 01-1.06 0L4.47 8.53a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L6.06 7.25h6.19a.75.75 0 010 1.5H6.06l3.72 3.72a.75.75 0 010 1.06z" fill="currentColor"/>
+            </svg>
+            Previous
+          </span>
+          <span class="page-nav-title">{prevPage.title}</span>
+        </a>
+      ) : (
+        <span class="page-nav-link page-nav-placeholder" aria-hidden="true"></span>
+      )}
+      
+      {nextPage ? (
+        <a href={nextPage.url} class="page-nav-link page-nav-next">
+          <span class="page-nav-direction">
+            Next
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <path d="M6.22 12.78a.75.75 0 001.06 0l4.25-4.25a.75.75 0 000-1.06L7.28 3.22a.75.75 0 10-1.06 1.06L9.94 7.25H3.75a.75.75 0 000 1.5h6.19l-3.72 3.72a.75.75 0 000 1.06z" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="page-nav-title">{nextPage.title}</span>
+        </a>
+      ) : (
+        <span class="page-nav-link page-nav-placeholder" aria-hidden="true"></span>
+      )}
+    </div>
+  </nav>
+)}

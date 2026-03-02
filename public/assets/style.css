@@ -151,6 +151,146 @@ main#content {
     margin: 0 auto;
 }
 
+/* --- Content Header (Breadcrumbs + Edit Link) --- */
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+/* --- Breadcrumbs --- */
+.breadcrumbs {
+    font-size: 0.875rem;
+}
+
+.breadcrumb-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb-item:not(:last-child)::after {
+    content: '›';
+    margin-left: 0.5rem;
+    color: #a0a8b4;
+}
+
+.breadcrumb-link {
+    color: #a0a8b4;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary-color);
+}
+
+.breadcrumb-current {
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+/* --- Edit Page Link --- */
+.edit-page-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: #a0a8b4;
+    text-decoration: none;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.edit-page-link:hover {
+    color: var(--primary-color);
+}
+
+.edit-page-link svg {
+    flex-shrink: 0;
+}
+
+/* --- Page Navigation (Previous/Next) --- */
+.page-navigation {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.page-nav-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.page-nav-link {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 1.25rem;
+    background-color: var(--sidebar-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: all 0.2s;
+    flex: 1;
+    max-width: 280px;
+}
+
+.page-nav-link:hover {
+    border-color: var(--primary-color);
+    background-color: var(--code-bg);
+}
+
+.page-nav-prev {
+    align-items: flex-start;
+}
+
+.page-nav-next {
+    align-items: flex-end;
+    text-align: right;
+    margin-left: auto;
+}
+
+.page-nav-direction {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #a0a8b4;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.25rem;
+}
+
+.page-nav-link:hover .page-nav-direction {
+    color: var(--primary-color);
+}
+
+.page-nav-title {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+}
+
+.page-nav-placeholder {
+    flex: 1;
+    max-width: 280px;
+}
+
 /* --- Right Sidebar (Table of Contents) --- */
 .toc-sidebar {
     grid-area: toc;
@@ -188,9 +328,38 @@ main#content {
     color: var(--text-color);
 }
 
+/* --- ADDED: Active state for scroll spy --- */
+.toc-sidebar nav li.active a,
+.toc-sidebar nav a.active {
+    color: var(--text-color);
+    border-left-color: var(--primary-color);
+    background-color: rgba(176, 113, 120, 0.1);
+}
+
 /* --- ADDED: Style for nested list items (h3 links) --- */
 .toc-sidebar nav .toc-level-h3 a {
     padding-left: 1.75rem; /* Indent h3 links */
+}
+
+.toc-sidebar nav .toc-level-h3.active a {
+    padding-left: 1.75rem; /* Keep consistent indentation */
+}
+
+/* --- ADDED: Active state for scroll spy --- */
+.toc-sidebar nav li.active a,
+.toc-sidebar nav a.active {
+    color: var(--text-color);
+    border-left-color: var(--primary-color);
+    background-color: rgba(176, 113, 120, 0.1);
+}
+
+/* --- ADDED: Style for nested list items (h3 links) --- */
+.toc-sidebar nav .toc-level-h3 a {
+    padding-left: 1.75rem; /* Indent h3 links */
+}
+
+.toc-sidebar nav .toc-level-h3.active a {
+    padding-left: 1.75rem; /* Keep consistent indentation */
 }
 
 
@@ -508,5 +677,32 @@ main#content {
     }
     main#content {
         padding: 1.5rem;
+    }
+
+    /* Mobile breadcrumbs and edit link */
+    .content-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .edit-page-link {
+        font-size: 0.8rem;
+    }
+
+    /* Mobile page navigation */
+    .page-nav-links {
+        flex-direction: column;
+    }
+
+    .page-nav-link,
+    .page-nav-placeholder {
+        max-width: none;
+        width: 100%;
+    }
+
+    .page-nav-next {
+        align-items: flex-start;
+        text-align: left;
     }
 }

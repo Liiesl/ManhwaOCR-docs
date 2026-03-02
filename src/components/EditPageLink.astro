@@ -1,0 +1,45 @@
+---
+// src/components/EditPageLink.astro
+// "Edit this page" link that points to the GitHub edit view
+
+import { GITHUB_REPO_URL, GITHUB_EDIT_BRANCH } from '../lib/constants.ts';
+
+interface Props {
+  // Optional: override the file path (defaults to current page)
+  filePath?: string;
+}
+
+const { pathname } = Astro.url;
+
+// Map URL paths to source file paths
+function getSourcePath(urlPath: string): string {
+  // Remove trailing slash for consistency
+  const cleanPath = urlPath.replace(/\/$/, '') || '/';
+  
+  if (cleanPath === '/') {
+    return 'src/pages/index.md';
+  }
+  
+  // Convert URL path to file path
+  // e.g., /getting-started/installation/ -> src/pages/getting-started/installation.md
+  const segments = cleanPath.split('/').filter(Boolean);
+  
+  // Check if it's an index page (ends with section name)
+  // e.g., /getting-started/ -> src/pages/getting-started/index.md
+  if (segments.length === 1 || cleanPath.endsWith('/')) {
+    return `src/pages${cleanPath}/index.md`.replace(/\/+/g, '/');
+  }
+  
+  return `src/pages${cleanPath}.md`;
+}
+
+const sourcePath = getSourcePath(pathname);
+const editUrl = `${GITHUB_REPO_URL}/edit/${GITHUB_EDIT_BRANCH}/${sourcePath}`;
+---
+
+<a href={editUrl} class="edit-page-link" target="_blank" rel="noopener noreferrer">
+  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M11.013 1.427a1.75 1.75 0 012.474 0l1.086 1.086a1.75 1.75 0 010 2.474l-8.61 8.61c-.21.21-.47.364-.756.445l-3.251.93a.75.75 0 01-.927-.928l.929-3.25c.081-.286.235-.547.445-.758l8.61-8.61zm1.414 1.06a.25.25 0 00-.354 0L10.811 3.75l1.439 1.44 1.263-1.263a.25.25 0 000-.354l-1.086-1.086zM11.189 6.25L9.75 4.81l-6.286 6.287a.25.25 0 00-.067.108l-.97 3.394 3.395-.97a.249.249 0 00.108-.067L11.189 6.25z" fill="currentColor"/>
+  </svg>
+  Edit this page
+</a>

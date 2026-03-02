@@ -2,7 +2,10 @@
 // your-new-docs-site/src/layouts/BaseLayout.astro
 
 import LeftSidebar from '../components/LeftSidebar.astro';
-import TableOfContents from '../components/TableOfContents.astro';
+import TableOfContents from '../components/TableOfContents.tsx';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import EditPageLink from '../components/EditPageLink.astro';
+import PageNavigation from '../components/PageNavigation.astro';
 
 // 'headings' is automatically provided by Astro from the markdown content
 const { frontmatter, headings } = Astro.props;
@@ -32,22 +35,31 @@ const { title, description } = frontmatter;
         </aside>
 
         <main id="content">
+            <!-- Breadcrumbs and Edit link row -->
+            <div class="content-header">
+                <Breadcrumbs />
+                <EditPageLink />
+            </div>
+
             <!-- The content of your markdown files goes here -->
             <slot />
+
+            <!-- Previous/Next page navigation -->
+            <PageNavigation />
         </main>
 
         <aside class="toc-sidebar">
-            <!-- 
-                UPDATED: We now render the TOC at build-time using a component.
-                This is more performant and doesn't require client-side JavaScript.
+            <!--
+                Interactive Table of Contents with scroll spy highlighting.
+                Uses client:idle to hydrate after initial page load.
             -->
-            <TableOfContents headings={headings} />
+            <TableOfContents headings={headings} client:idle />
         </aside>
 
     </div>
-    <!-- 
-        REMOVED: The <script src="/assets/main.js"> tag.
-        The Table of Contents is no longer generated on the client.
+    <!--
+        Table of Contents is now interactive with scroll spy.
+        No additional scripts needed - handled by Preact component hydration.
     -->
 </body>
 </html>
