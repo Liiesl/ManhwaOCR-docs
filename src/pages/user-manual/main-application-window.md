@@ -9,7 +9,7 @@ order: 2
 
 Once a project is loaded, the Main Application Window becomes your primary workspace. It features a three-column layout designed for an efficient workflow.
 
-<img src="/assets/Screenshot 2025-09-27 014312.png" alt="Easy Scanlate Main Application Window" width="800">
+<img src="/assets/Screenshot 2025-09-27 014312.png" alt="Easy Scanlate Main Application Window" width="700">
 
 ## Layout Overview
 
