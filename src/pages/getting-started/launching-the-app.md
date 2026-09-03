@@ -7,45 +7,38 @@ order: 3
 
 # Launching the Application
 
-Once installed, you can launch EasyScanlate from your system's application menu (Start Menu on Windows). If you are running from source, execute `py main.py` in your terminal from the project directory.
+Once installed, launch EasyScanlate from your Start Menu (Windows) or your app launcher. You'll land on the **Home Window**, your hub for projects.
 
-### Command Line Options
+> TODO screenshot: new Home screen with Recent projects + New / Open buttons.
 
-You can also launch EasyScanlate with a project file directly:
+### Opening a project directly
 
-```bash
-py main.py path/to/project.mmtl
-```
+You can also open a project file straight away:
 
-This will skip the Home Window and open the project immediately.
+*   **Double-click** any `.mmtl` file in your file explorer — it opens in EasyScanlate.
+*   If the app is already running, the file opens in a **new tab** so you don't lose your place.
 
-### Splash Screen
+### First run: the Welcome wizard
 
-Upon launch, you will first see a **Splash Screen**. This screen indicates that the application is initializing its components in the background. You will see status messages appear at the bottom, such as:
+The very first time you launch, you'll see a **Welcome wizard** instead of the empty Home screen. It walks you through:
 
-- "Loading application settings..."
-- "Finding recent projects..."
-- "Verifying: [project_name]..." (for each recent project)
-- "Cleaning up old project entries..." (if more than 6 recent projects)
+1.  **Welcome** — what the app does.
+2.  **Download models** — fetches what the app needs for finding text and cleaning images. Shows progress, resumes if interrupted. Needs to finish before you continue.
+3.  **Preferences** — appearance and helpful automatics.
+4.  **Translation (optional)** — connect an AI service, or skip for now.
+5.  **Done** — you're ready!
 
-<img src="/assets/Screenshot 2025-09-27 014001.png" alt="EasyScanlate Splash Screen" width="400">
+If you skipped something, don't worry. You can replay the wizard any time from `Settings` → `General` → `Replay onboarding`.
 
-The splash screen provides visual feedback that the app is starting up correctly. Once initialization is complete, you will automatically be taken to the **Home Window**, your central hub for managing projects.
+### Home after first run
 
-### First-Time Launch
+On later launches you'll go straight to Home:
 
-On first launch, the Home Window will show an empty recent projects list since you haven't opened any projects yet. Use the "New Project" button to get started.
+*   Empty at first? Just click **New Project** to get started.
+*   Coming back? Double-click anything in **Recent Projects** — it shows when you last opened each one ("2 hours ago", "3 days ago").
 
-### Startup Errors
+### If the app won't start
 
-If the application fails to start, you may see an error dialog. Common issues include:
-
-- **Dependency Error**: If PyQt5 is installed instead of PySide6, a dialog will appear with instructions to fix the conflict. Uninstall PyQt5 and install PySide6:
-  ```bash
-  pip uninstall PyQt5
-  pip install pyside6
-  ```
-
-- **Project File Not Found**: If you specify a `.mmtl` file that doesn't exist, an error dialog will appear.
-
-For critical startup failures, an error dialog will display and the application will exit.
+*   **It opens then closes right away:** Did you add the antivirus exclusion before first launch? See [Installation](/getting-started/installation#crucial-step-add-antivirus-exclusion-before-first-launch). Reinstall, add the exclusion, then launch again.
+*   **A project file won't open:** It may have been moved, renamed, or is still downloading. Try `Open Project` and browse to it manually.
+*   **Still stuck?** See [Troubleshooting](/getting-started/errors/) for more help.

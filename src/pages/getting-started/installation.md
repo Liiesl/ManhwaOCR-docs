@@ -7,31 +7,31 @@ order: 2
 
 # Installation
 
-This guide covers the two methods for installing Easy Scanlate. For the vast majority of users, the direct executable installer is the recommended method. It is stable, simple, and includes an automatic downloader for required libraries.
+This guide covers the two ways to get Easy Scanlate. For almost everyone, the Windows installer is the way to go. It's simple, keeps itself updated, and fetches what it needs on first run.
 
 | Method | Best For | Difficulty |
 | :--- | :--- | :--- |
 | **1. Via Windows Installer** | **All users.** The simplest and most reliable way to get started. | Easy |
-| **2. From Source Code** | Developers, advanced users, or those on other operating systems. | Medium |
+| **2. Build From Source** | Developers, or folks on Mac / Linux. | Medium |
 
 ---
 
 ## 1. Via Windows Installer (Recommended Method)
 
-This is the most straightforward way to install the application. The installer handles setting up shortcuts, file associations, and the application's core files. Currently, an official installer is only available for **Windows**.
+This is the most straightforward way to install the application. The installer sets up shortcuts and makes double-clicking `.mmtl` project files just work. Currently, an official installer is only available for **Windows**.
 
 ### Installation Steps
 
 1.  **Download:** Go to the project's official **[GitHub Releases Page](https://github.com/Liiesl/EasyScanlate/releases)** and download the latest `EasyScanlate-Installer.exe`.
-2.  **Install:** Run the `.exe` installer. It will guide you through the standard installation process.
-3.  **Finish Installation:** Complete the setup, but **do not run the application yet**.
+2.  **Install:** Run the `.exe` installer. It installs just for you (no admin needed) into your local app folder.
+3.  **Finish Installation:** Complete the setup, but **do not run the application yet** — read the antivirus note below first.
 
 ### Crucial Step: Add Antivirus Exclusion (BEFORE First Launch)
 
-> **IMPORTANT:** You must complete this step before you run the application for the first time. If you do not, your antivirus software (especially Windows Defender) will likely quarantine or **delete the main executable file (`main.exe`)**, preventing the application from starting.
+> **IMPORTANT:** Please do this before you run the app for the first time. Otherwise your antivirus (especially Windows Defender) may quarantine or **delete the main app file (`EasyScanlate.exe`)**, and the app won't start.
 
 **Why does this happen?**
-This is a **false positive**. The application is built using a tool called Nuitka, which compiles Python code into an executable. The methods used by this compiler are sometimes incorrectly flagged as suspicious by antivirus programs.
+New, lesser-known apps are sometimes flagged by mistake. It's a **false positive** — the app is safe, but the check keeps Defender from removing it.
 
 **How to Add an Exclusion to Windows Defender:**
 
@@ -41,122 +41,66 @@ This is a **false positive**. The application is built using a tool called Nuitk
 4.  Scroll down to the "Exclusions" section and click **Add or remove exclusions**.
 5.  Click the **+ Add an exclusion** button and select **Folder**.
 6.  In the file dialog that appears, navigate to the installation directory. The default location is:
-    `C:\Program Files\EasyScanlate` or `C:\Program Files (x86)\EasyScanlate` 
+    `%LocalAppData%\EasyScanlate`
+    (for example `C:\Users\YourName\AppData\Local\EasyScanlate`)
 7.  Select the `EasyScanlate` folder and click **Select Folder**.
 
 By adding this exclusion, you ensure that Windows Defender will not interfere with the application's files.
 
-### First-Time Launch: Model Download
+### First-Time Launch: Welcome Wizard + Model Download
 
 After you have added the antivirus exclusion, you can safely launch the application for the first time.
 
-Easy Scanlate uses **RapidOCR** for text recognition. On first use, it will automatically download the required ONNX models (a small download, typically under 100MB).
+You'll see a friendly **Welcome wizard** that walks you through setup:
 
-*   The first OCR operation may take slightly longer as the models are cached.
-*   Subsequent launches will be immediate.
+*   **Welcome** — a quick hello and what to expect.
+*   **Download models** — the app fetches the pieces it needs for finding text, guessing styles, finding bubbles, and cleaning up backgrounds. This happens once, shows progress per item, and picks up where it left off if your internet drops. You can't skip this part — everything needs to be ready for full features — but there's a **Retry** button if anything fails.
+*   **Appearance & automation** — pick your look and choose helpful automatics (like auto-detecting styles and cleaning behind text).
+*   **Translation (optional)** — connect an AI service now, or skip and do it later from Settings.
 
-### Configure API Keys (For AI Translation)
+> **Tip:** You can replay this wizard any time from `Settings` → `General` → `Replay onboarding`.
 
-To use the [AI Translation](/user-manual/ai-translation/) feature, you need to configure an API key:
+*   The first text detection may take slightly longer as things get ready.
+*   Later launches go straight to the Home screen.
 
-1.  **Get an API Key:**
-    *   **Mistral** (Recommended): Get an API key from [Mistral AI Console](https://console.mistral.ai/) (1 billion tokens/month free tier)
-    *   **Gemini**: Get a free API key from [Google AI Studio](https://ai.google.dev/) (requires Google account, 20 requests per model per day)
-2.  **Add Key to Settings:** Open Easy Scanlate, go to `Settings (Ctrl+,)` → `AI Translation` tab, and enter your API key
+### Configure AI Translation (Optional)
 
-> **Note:** AI Translation is optional. The application works without an API key for OCR and editing functionality.
+To use the [AI Translation](/user-manual/ai-translation/) feature, you connect a provider:
+
+1.  **Pick a provider to start with:**
+    *   **Kilo (Easiest to try):** A single key that opens up lots of models, with free options to test — no credit card needed to try.
+    *   **Google (Best quality in our tests):** Great translations with a free tier, no credit card needed. The free tier can be busy sometimes, so occasional retries are normal.
+    *   **Mistral:** Another solid choice with a free tier.
+    *   There are many more built in (OpenAI, Anthropic, xAI, OpenRouter, DeepSeek, and others), plus local options if you run your own AI at home (Ollama, vLLM, llama.cpp).
+2.  **Add it in the app:** Open Easy Scanlate, go to `Settings` → `Translation`, pick your provider and paste your API key, then pick a model.
+
+> **Note:** AI Translation is optional. The application works without it for finding and editing text. Limits and prices depend on the provider you choose — check their site for current details.
 
 ---
 
-## 2. From Source Code (Alternative Method)
+## 2. Build From Source (Alternative Method)
 
-This method is for developers, users on operating systems other than Windows, or those who want access to the very latest updates between official releases. It requires installing Python and Git manually.
+This method is for developers, folks on Mac or Linux, or anyone who wants the very latest code between releases. You'll need Git and Rust.
 
-### Prerequisites
+### What you need
 
-Before proceeding, ensure you have **Python** and **Git** installed on your system.
+*   **Git** — to download the code: **[git-scm.com/downloads](https://git-scm.com/downloads)**
+*   **Rust** (recent stable) — to build the app: **[rustup.rs](https://rustup.rs/)**
 
-#### A. Install Python (3.12+ Recommended)
+### Steps
 
-1.  **Download:** Go to the official Python website: **[python.org/downloads/](https://www.python.org/downloads/)**
-2.  **Run Installer:** Launch the installer.
-3.  **Important (Windows):** On the first page of the installer, you must check the box labeled **"Add Python to PATH"** or **"Add python.exe to PATH"**. This step is crucial for running Python from the command line.
-    ![Add Python to PATH checkbox](/assets/0_7nOyowsPsGI19pZT.png)
-4.  Complete the installation using the default settings.
-
-#### B. Install Git
-
-Git is required to download (clone) the application's source code from its repository.
-
-1.  **Download:** Go to the official Git website: **[git-scm.com/downloads](https://git-scm.com/downloads)**
-2.  **Run Installer:** Launch the installer and proceed with the default recommended settings.
-
-### Installation Steps
-
-The following steps should be performed in a command-line interface (e.g., **Terminal** on macOS/Linux or **Command Prompt (CMD)** / **PowerShell** on Windows).
-
-#### Step 1: Create a Folder and Download the Code
-
-First, create a dedicated folder for the tool and download the source code into it.
-
-1.  **Create and Navigate to a Project Folder:**
+1.  **Download the code:**
     ```bash
-    mkdir EasyScanlate
+    git clone https://github.com/Liiesl/EasyScanlate.git
     cd EasyScanlate
     ```
 
-2.  **Download (Clone) the Application Repository:** This command uses Git to download the source code into your current folder.
+2.  **Build and run:**
     ```bash
-    # Note the space and dot " ." at the end.
-    git clone https://github.com/Liiesl/EasyScanlate.git .
+    cargo run --release
     ```
+    The first build takes a while (it builds the whole app). Later runs are fast.
 
-<details>
-<summary><b>For Advanced Users: Using a Virtual Environment (Optional)</b></summary>
+    Want just the app file? After building you'll find it in `target/release/` as `easyscanlate` (or `EasyScanlate.exe` on Windows).
 
-If you are a developer and prefer to keep project dependencies isolated, you can create and activate a virtual environment after running `cd EasyScanlate`.
-
-```bash
-# Create the virtual environment
-# On Windows: 
-python -m venv venv
-# On macOS/Linux: 
-python3 -m venv venv
-
-# Activate it (must be done each time you open a new terminal)
-# On Windows: 
-.\venv\Scripts\activate
-# On macOS/Linux: 
-source venv/bin/activate
-```
-A `(venv)` prefix will appear in your terminal prompt when it's active. All subsequent `pip install` commands will apply only to this environment.
-
-</details>
-
-#### Step 2: Install Dependencies
-
-Install the required Python libraries from the `requirements.txt` file.
-```bash
-# On Windows
-pip install -r requirements.txt
-
-# On macOS or Linux
-pip3 install -r requirements.txt
-```
-
-#### Step 3: Run the Application
-
-Launch the tool from your terminal. Make sure you are still inside the `EasyScanlate` directory.
-
-```bash
-# On Windows (if 'py' launcher is configured)
-py main.py
-
-# On Windows (alternative)
-python main.py
-
-# On macOS or Linux
-python3 main.py
-```
-
-> **Note:** Use `py main.py` if you have the Python launcher configured on Windows. Use `python main.py` for standard Windows Python installations. Use `python3 main.py` on macOS and Linux systems where Python 2 and 3 coexist.
+> **Note for Mac / Linux:** There is no official installer yet — building from source is the way to run the app. Everything else (Home screen, projects, models download) works the same once it starts.

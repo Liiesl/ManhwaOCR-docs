@@ -10,10 +10,10 @@
     "build:search": "node scripts/build-search-index.js"
   },
   "dependencies": {
-    "@astrojs/preact": "^4.1.0",
-    "@astrojs/sitemap": "^3.6.0",
-    "astro": "^5.13.3",
-    "fuse.js": "^7.1.0",
-    "preact": "^10.27.1"
+    "@astrojs/preact": "^6.0.5",
+    "@astrojs/sitemap": "^3.7.4",
+    "astro": "^7.3.1",
+    "fuse.js": "^7.5.0",
+    "preact": "^10.29.8"
   }
 }

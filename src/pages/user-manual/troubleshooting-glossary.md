@@ -7,113 +7,60 @@ order: 11
 
 # Troubleshooting & Glossary
 
-## Troubleshooting Common Issues
+Quick fixes for common bumps, plus plain definitions for words we use a lot.
 
-Here are solutions to some common problems you might encounter.
+> TODO screenshot: error dialog with Copy details button.
 
-### "Incorrect GUI Library Detected" Error on Startup
-*   **Problem:** This critical error occurs when running the application from source (`python main.py`) if you have `PyQt5` installed instead of the required `PySide6`.
-*   **Solution:** Follow the specific instructions in the error message. Open your terminal or command prompt and run:
-    ```bash
-    pip uninstall PyQt5
-    pip install pyside6
-    ```
-    Then, relaunch the application.
+## Quick fixes
 
-### OCR Fails to Start or Gives Errors
-*   **Problem:** The OCR process fails to initialize or stops with an error.
-*   **Solution:**
-    *   **Internet Connection:** RapidOCR downloads language models on its first run. Ensure you have an active internet connection.
-    *   **GPU Issues:** If `Use GPU` is checked in [Settings](/user-manual/settings/), ensure you have a CUDA-enabled NVIDIA GPU with correctly installed drivers. If you suspect issues, try unchecking `Use GPU` to force CPU mode, which is slower but more compatible.
-    *   **Memory Errors:** If OCR fails on large projects, try reducing the `OCR Batch Size` in `Settings > OCR Parameters` to lower VRAM/RAM usage.
-    *   **Restart:** A simple restart of the application can sometimes resolve temporary issues.
-    *   **Coordinate Errors:** If you see warnings about "coordinate scaling error" or "coordinate conversion error", the OCR detected text but had issues calculating its position. Try re-running OCR on that specific image.
+### The app won't start
+*   **Try:** Reinstall from [GitHub releases](https://github.com/Liiesl/EasyScanlate/releases), making sure the antivirus exclusion from [Installation](/getting-started/installation#crucial-step-add-antivirus-exclusion-before-first-launch) is in place *before* first launch. Restart your computer if it still sulks.
 
-### "API Key Missing" Error for AI Translation
-*   **Problem:** An error appears when you try to use the [AI Translation](/user-manual/ai-translation/) feature.
-*   **Solution:** You must provide your personal API key. Go to `Settings (Ctrl+,) > API Settings`, select your preferred provider (Gemini or Mistral), paste your key into the field, and select a model. You can get a key from [Google AI Studio](https://ai.google.dev/) for Gemini or [Mistral AI](https://console.mistral.ai/) for Mistral.
+### Text detection fails or finds nothing
+*   **Try:** Check models finished downloading (`Settings` → `General` → `Replay onboarding` shows status). Restart, try one page first. If images are huge, try a smaller test page. See [Troubleshooting](/getting-started/errors/).
 
-### Translation API Errors
-*   **Problem:** Translation fails with an API error message.
-*   **Solution:**
-    *   **Rate Limits:** Free tier API keys have daily request limits (e.g., Gemini-2.5-flash: 250 req/day). Wait before retrying or upgrade your API plan.
-    *   **Invalid API Key:** Verify your API key is correct and hasn't expired.
-    *   **Network Issues:** Check your internet connection. The app needs to connect to the provider's servers.
-    *   **Model Availability:** Some models may not be available in your region. Try selecting a different model in Settings.
+### "API Key Missing" for translation
+*   **Try:** `Settings` → `Translation`, pick your provider, paste your key (no extra spaces), pick a model. You can get a key from your provider's site — recommended ones link out from Settings.
 
-### Project Load Errors
-*   **Problem:** Error when opening an MMTL file like "Failed to load project" or "The 'images' directory is missing".
-*   **Solution:**
-    *   **Corrupt File:** The MMTL file may be corrupted. Try opening a backup if available.
-    *   **Manual Extraction:** MMTL files are ZIP archives. You can extract them manually to recover images and data.
-    *   **Missing Images:** If the images directory was deleted from the project, the project cannot be opened properly.
+### Translation fails / busy / rate limit
+*   **Try:** Wait a little and retry, or try another model. Free tiers get busy at peak times. Check your internet (local AI needs its server running).
 
-### Import/Export Errors
-*   **Problem:** Failed to import translation files or export rendered images.
-*   **Solution:**
-    *   **Invalid Format:** Ensure translation files follow the expected XML format with proper `<filename>` and `<row_number>` tags.
-    *   **File Permissions:** Check that you have write permissions for the export location and read permissions for import files.
-    *   **Disk Space:** Ensure sufficient disk space for exported images.
+### Project won't open
+*   **Try:** It may have moved — use `Open Project` and browse to it. Try a backup copy. As a last resort, copy the `.mmtl`, rename the copy to `.zip`, and peek inside to rescue images.
 
-### Slow Performance or UI Lag
-*   **Problem:** The application is slow, especially during OCR.
-*   **Solution:**
-    *   **Enable GPU:** The single biggest performance boost comes from enabling `Use GPU` in `Settings > OCR Parameters` (if you have a compatible NVIDIA GPU).
-    *   **Adjust `OCR Resize Threshold`:** In `Settings`, ensuring this is enabled (e.g., set to `1024`) can significantly speed up processing for very large images by downscaling them before OCR.
-    *   **Reduce `OCR Batch Size`:** A smaller batch size uses less memory and can prevent system slowdowns on machines with less VRAM or RAM.
-    *   **System Resources:** Close other resource-intensive applications.
-    *   **Auto Context Fill:** Disable "Auto Context Fill on Batch OCR" if enabled, as it can slow down processing.
+### Import / export fails
+*   **Try:** For imports, only edit words between tags, not the tags. For exports, check write permission + free disk space in the output folder.
 
-### Update Errors
-*   **Problem:** Update check fails or download fails.
-*   **Solution:**
-    *   **Script Mode:** Updates are disabled when running from source. Install the compiled version for auto-updates.
-    *   **Network Timeout:** The update server may be slow. Try again later.
-    *   **Manual Update:** Download the latest version from GitHub releases manually.
+### Slow / laggy, especially during detection
+*   **Try:** Close other heavy apps. In Settings, lower max image size a notch. Turn off auto clean-up while testing for raw speed.
 
-### Temporary Project Files Are Not Deleted
-*   **Problem:** If the application crashes, temporary files from your project may be left behind.
-*   **Solution:** You can safely delete these files manually. They are located in your system's temporary folder (e.g., on Windows, press `Win + R`, type `%TEMP%`, and look for folders named like `tmpXXXXXX`).
+### Updates fail
+*   **Try:** Check internet, retry later from `Settings` → `General`. Or grab the newest installer manually from GitHub releases.
 
-### Manual OCR Errors
-*   **Problem:** Manual selection for OCR gives "Selection area is invalid or outside image bounds" error.
-*   **Solution:** Ensure your selection rectangle is within the image boundaries and has a valid size (not too small).
+### Manual select says "invalid area"
+*   **Try:** Keep the box fully inside the page and not tiny. Give text a little margin and try again.
+
+### Leftover temp files after a crash
+*   **Try:** It's safe to delete the app's leftovers in your system temp folder (Windows: `Win+R` → `%TEMP%`). Your saved `.mmtl` is what matters.
 
 ## Glossary
 
-*   **API Key:** A unique code that grants you access to a service like the Google Gemini API or Mistral AI API.
-*   **Batch OCR:** The process of automatically running OCR on all images in a project at once.
-*   **Context Fill:** The process of automatically filling in the background behind text boxes before rendering new text, useful for removing original text.
-*   **Coordinates:** The pixel positions (x, y) that define where a text box is located on an image.
-*   **Gemini:** A family of powerful AI models created by Google, used in this tool for translation.
-*   **GPU Acceleration:** Using your graphics card (NVIDIA with CUDA) to speed up OCR processing.
-*   **Image View:** The left panel in the Main Application Window where images and their text boxes are displayed. Also referred to as the Center Panel in some documentation.
-*   **MMTL File (.mmtl):** The custom project file format for the Easy Scanlate. It's a zip archive containing all images, text data, profiles, and styles.
-*   **Mistral:** An alternative AI provider to Gemini for translation, offering different models and rate limits.
-*   **OCR (Optical Character Recognition):** The technology that converts text within images into machine-readable text.
-*   **Profile:** A distinct version of the text for your project. Common profiles include "Original" (raw OCR), "User Edit" (your corrections), and translation profiles like "Gemini Translation" or "Mistral Translation".
-*   **Provider:** The AI service used for translation (Gemini or Mistral).
-*   **RapidOCR:** The open-source Optical Character Recognition library that powers the text extraction in this tool.
-*   **Rendered Image:** A final output image where the text from a selected profile has been "burned" or drawn onto the original image.
-*   **Results Widget:** The table in the Right Panel that lists all text entries for easy editing, sorting, and management.
-*   **Row Number:** A unique identifier assigned to each text box in a project, used for tracking and importing/exporting translations.
-*   **Splitting:** The process of dividing a single image horizontally into multiple, smaller images.
-*   **Stitching:** The process of combining multiple images vertically into a single, longer image.
-*   **VRAM (Video RAM):** The dedicated memory on a graphics card (GPU), which is heavily used during GPU-accelerated OCR.
-*   **for-translate Format:** A custom XML format used for exporting clean text for external translation and re-importing it.
+*   **API Key:** A secret code from an AI service that lets the app translate for you.
+*   **Automatic detection:** Reading all pages at once.
+*   **Manual select:** Drawing a box to read just that spot.
+*   **Clean-up:** Tidying the background behind words so new text sits cleanly.
+*   **Profile:** A version of your words. "Original" (found text, kept safe), "User Edit" (your fixes), translation profiles ("... (English)" etc.).
+*   **Provider:** The AI service you picked for translation.
+*   **Model:** The specific AI brain within a provider (fast vs. thorough).
+*   **Image View:** The middle area showing your pages + boxes.
+*   **Results list:** The right-side list of all found text, ready to edit.
+*   **MMTL File (.mmtl):** Your whole project in one file — images, words, versions, styles. Double-click to open.
+*   **Rendered Image:** A final picture with your chosen profile's words drawn on — what you share.
+*   **Stitching / Splitting:** Joining pages into one long strip, or dividing one page into two.
+*   **For-translators file:** A clean XML/TXT export for sending words out and bringing translations back.
 
-## Error Dialog Features
+## If you need help
 
-When an error occurs, the application displays a detailed error dialog with the following features:
-
-*   **Copy Traceback:** Click to copy the full error details to your clipboard for sharing or debugging.
-*   **Report Issue to GitHub:** Opens a pre-filled GitHub issue with system information, error details, and traceback automatically included.
-*   **System Information:** Error reports include OS, architecture, app version, Python version, PySide6 version, and Git status (when running from source).
-
-## Getting Help
-
-If you encounter an issue not covered here:
-
-1. Check the [GitHub Issues](https://github.com/Liiesl/EasyScanlate/issues) page for similar problems
-2. Use the "Report Issue to GitHub" button in any error dialog to create a detailed bug report
-3. Include steps to reproduce the issue and your system information
+1.  In any error dialog, click **Copy details**.
+2.  Check [GitHub Issues](https://github.com/Liiesl/EasyScanlate/issues) for similar reports.
+3.  Open a new issue with: app version, what you clicked, what you expected, and a screenshot if you can.

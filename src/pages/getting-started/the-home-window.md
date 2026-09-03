@@ -7,42 +7,41 @@ order: 4
 
 # The Home Window
 
-The Home Window is the first interactive screen you'll see after the application launches. It serves as your starting point for all project-related tasks.
+The Home Window is the first screen you'll see after the app launches. It's your starting point for everything.
 
-<img src="/assets/Screenshot 2025-09-27 014209.png" alt="Easy Scanlate Home Window" width="700">
+> TODO screenshot: new Home Window (left actions + right Recent list).
 
 ## Main Actions
 
-The panel on the left provides the primary actions for managing your projects:
+The panel on the left has what you need most:
 
-*   **New Project:** Creates a new project from a folder of images.
-*   **Import from WFWF:** Imports a project from the external "What-If World Flow" (WFWF) format, useful for migrating from other tools.
-*   **Open Project:** Opens a previously saved project from a `.mmtl` file.
-*   **Settings:** Opens the application settings dialog.
+*   **New Project:** Creates a new project from a folder of images (or a single image).
+*   **Open Project:** Opens a project you've saved before (a `.mmtl` file).
+*   **Settings:** Opens the application settings.
 
 ## Recent Projects
 
-The panel on the right displays a convenient list of your most recently opened projects. Simply double-click any entry to quickly reopen it and continue your work.
+The panel on the right shows projects you've opened before, most recent first. Just double-click one to jump back in where you left off.
 
 ### Creating a New Project
 
 1.  Click the **New Project** button.
-2.  A dialog will open with several options:
-    *   **Source:** Click "Folder" or "Image" to select the directory containing your image files (`.png`, `.jpg`, etc.) or a single image file.
-    *   **Original Language:** Select the source language of the manhwa (e.g., Korean, Japanese, Chinese). This helps configure the OCR engine.
-    *   **Project Location:** Click "Browse" to choose a location and name for your new project file.
+2.  A dialog opens with a few choices:
+    *   **Source:** Click "Folder" to pick a folder of images (`.png`, `.jpg`, etc.) or "Image" for a single image.
+    *   **Original Language:** Pick the language in your images (e.g., Korean, Japanese, Chinese). This helps the app read text correctly.
+    *   **Project Location:** Click "Browse" to choose where to save your new project file.
 3.  Click **Create** to save the project.
 
-This process creates a single `.mmtl` file. This file is a self-contained archive that holds all your images, OCR data, edits, styles, and translations, making your project portable and easy to manage.
+This creates a single `.mmtl` file. It's a self-contained file that holds your images, found text, edits, styles, and translations — easy to move or back up.
 
 > **✨ Automatic File Sorting**
-> Don't worry about messy filenames! The tool intelligently detects numbers in your image filenames and automatically sorts them in the correct numerical order when creating a project.
-> For example, files named `p_010.jpg`, `page_1.png`, and `2.jpeg` will be correctly ordered as page 1, 2, and 10 in your project.
+> Don't worry about messy filenames! The tool looks for numbers in your filenames and sorts them correctly.
+> For example, files named `p_010.jpg`, `page_1.png`, and `2.jpeg` will be ordered as page 1, 2, and 10 in your project.
 
-After creating or opening a project, you will be taken to the **Main Application Window**, your primary workspace. To learn about its features, continue to the **[User Manual](/user-manual/)**.
+After creating or opening a project, you'll go to the **Main Application Window**, your primary workspace. To learn about it, continue to the **[User Manual](/user-manual/)**.
 
 ### Opening an Existing Project
 
-1.  Click the **Open Project** button or double-click a project in the **Recent Projects** list.
-2.  If you clicked "Open Project," a file dialog will appear. Navigate to your `.mmtl` project file and select it.
-3.  A loading dialog will appear as the application extracts and verifies your project. It will then open in the **Main Application Window**, where you can pick up right where you left off.
+1.  Click **Open Project** or double-click a project in **Recent Projects**.
+2.  If you clicked "Open Project," pick your `.mmtl` file.
+3.  The app loads your images and text, then opens the main workspace where you left off.

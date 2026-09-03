@@ -7,280 +7,121 @@ order: 3
 
 # Common Workflows
 
-This guide provides optimized workflows for different types of projects and scenarios. Each workflow is tailored to specific needs, helping you work more efficiently.
+Pick the recipe that matches your project — or mix and match.
+
+> TODO screenshot: stitch confirm bar + profile picker + export dialog.
 
 ---
 
-## Webtoon Workflow
+## Webtoon Workflow (long vertical comics)
 
-Webtoons (long vertical comics) require special handling due to their unique format.
+Long strips need a little care since story flows top to bottom.
 
-### Preparation
+1.  **Import in order.** Name files with numbers (`chapter01_01.jpg`...) — the app sorts them for you.
+2.  **Join pages that belong together (optional).** If a scene spans files: left toolbar → **Stitch** → click pages top to bottom → **Confirm Stitch**. Found text moves along automatically.
+3.  **Find all text** with Start. Long pages are handled in sections behind the scenes.
+4.  **Divide for sharing (if needed).** Stitched but need separate files at the end? Left toolbar → **Split** → click the page → place and drag the cut line → **Confirm Split** (max two pieces per split).
 
-*   Source images are typically long vertical strips
-*   Each "chapter" may be split into multiple image files
-*   Text flows top-to-bottom continuously
+**Tips:**
 
-### Recommended Workflow
-
-1.  **Import Images in Order**
-    *   Ensure your image files are named sequentially (e.g., `chapter01_01.jpg`, `chapter01_02.jpg`)
-    *   Easy Scanlate automatically sorts numerically-named files
-
-2.  **Stitch Related Pages** (Optional)
-    *   If a scene spans multiple files, use the **Stitch** tool:
-    *   Click **"Stitch Images"** in the left toolbar
-    *   Select images in reading order (top to bottom)
-    *   Click **"Confirm Stitch"** to merge into one long image
-    *   OCR results are automatically re-mapped
-
-3.  **Run Batch OCR**
-    *   Process all images at once
-    *   Long images are automatically handled - OCR runs on sections
-
-4.  **Split for Export** (If Needed)
-    *   If you stitched images but need separate files for final output:
-    *   Use the **Split** tool to divide at logical breakpoints
-    *   Click **"Split Images"** in the left toolbar
-    *   Select image and place split line at desired position
-
-### Tips for Webtoons
-
-*   **Stitch for OCR**: Combining pages before OCR can improve context for AI translation
-*   **Split for Distribution**: Export as separate files for easier distribution
-*   **Check Long Text Boxes**: Webtoon speech bubbles can span large areas - verify OCR caught all text
+*   Joining before detection gives better story context (and nicer translations).
+*   Check tall bubbles — webtoon speech can sprawl. Add missed bits with Manual select.
 
 ---
 
-## Multi-Chapter Management
+## Multi-Chapter Management (series / volumes)
 
-For projects spanning multiple chapters or volumes.
+### Pick a shape
 
-### Organization Strategy
+**Option A: One project per chapter (recommended for most)**
+*   Separate `.mmtl` files per chapter.
+*   Pros: Smaller, faster, one bad file can't sink the ship.
+*   Cons: A few more files to juggle.
 
-**Option A: One Project Per Chapter**
-*   Create separate `.mmtl` files for each chapter
-*   Pros: Smaller files, faster loading, isolated if corruption occurs
-*   Cons: More files to manage, profile/styles don't carry over
+**Option B: Everything in one big project**
+*   Pros: One set of versions + styles for global tweaks.
+*   Cons: Bigger, slower.
 
-**Option B: Single Project with Multiple Chapters**
-*   Import all chapter images into one project
-*   Pros: Unified profiles and styles, easier global changes
-*   Cons: Larger file size, slower operations
+### Starter kit (Option A)
 
-### Recommended Workflow (Option A)
+1.  **Make a template.** Set up one chapter with your favorite detection settings, a saved style preset, and your usual fonts. Save as `template.mmtl`.
+2.  **Copy per chapter.** Open the template, swap in the new chapter's images via `File`, then `Save As` → `chapter_02.mmtl`...
+3.  **Name versions clearly** ("Ch1 - Edit", "Ch1 - Translation") so merging later is painless.
 
-1.  **Create Project Template**
-    *   Set up one project with your preferred:
-        *   OCR settings (text height, confidence)
-        *   Default text box styles
-        *   Custom fonts in `assets/fonts/`
-    *   Save as `template.mmtl`
-
-2.  **Duplicate for New Chapters**
-    *   Open template project
-    *   Use **File > Import Images** to replace with new chapter
-    *   Save As to create `chapter_XX.mmtl`
-
-3.  **Consistent Naming**
-    *   Use chapter prefixes in profiles:
-        *   "Ch1 - User Edit"
-        *   "Ch1 - Translation"
-    *   Makes merging chapters easier later
-
-### Tips for Multi-Chapter Projects
-
-*   **Backup Regularly**: Save versions at key milestones
-*   **Document Styles**: Note font/size combinations used for consistency
-*   **Export in Batches**: Process a few chapters at a time to manage workload
+**Tips:** Back up at milestones (`Save As`). Jot down your font/size combo for consistency. Export a few chapters at a time.
 
 ---
 
-## Quick OCR Workflow
+## Quick Words Only (no translation, no styling)
 
-For when you just need text extraction without translation or styling.
+For grabbing text for other tools, archives, or word counts:
 
-### Use Cases
+1.  New Project → pick images → Create.
+2.  Click **Start**.
+3.  **Import/Export menu** → Export words → **For translators (XML)** for clean text, or **Full backup (JSON)** for everything.
+4.  Done. No editing needed.
 
-*   Extracting text for external translation tools
-*   Creating searchable archives of comics
-*   Quick text analysis or word counting
-
-### Workflow
-
-1.  **Create Project**
-    *   New Project → Select images → Create
-
-2.  **Run Batch OCR**
-    *   Click "Process OCR"
-    *   Wait for completion
-
-3.  **Export OCR Results**
-    *   Click the **Import/Export Menu** (bars icon)
-    *   Select **"Export OCR Results"**
-    *   Choose **Master (JSON)** format for complete data
-    *   Or choose **For-Translate (XML)** for clean text export
-
-4.  **Done**
-    *   No editing or styling needed
-    *   Export takes seconds
-
-### Tips for Quick OCR
-
-*   **Adjust OCR Settings First**: If text is missed, tweak settings before re-running
-*   **Use XML Export**: Clean format for translators or external tools
-*   **Skip Context Fill**: Disable "Auto Context Fill" in settings for faster processing
+**Tips:** If words are missed, tweak detection settings *before* re-running. Turn off auto clean-up in Settings for max speed here.
 
 ---
 
-## Collaboration Workflow
+## Working with a Translator (who doesn't use the app)
 
-Working with external translators who don't use Easy Scanlate.
+1.  Make the project, run detection.
+2.  **Import/Export menu** → Export → **For translators (XML)**, profile "Original" → save `project_for_translate.xml`.
+3.  **Send** the XML (+ pages if helpful). Ask them to only edit words between tags.
+4.  **Bring it back:** Import/Export → Import → pick their file → **Create New Profile** ("Translator A").
+5.  Switch to that profile, read it on the pages, fix styles, export finished pictures.
 
-### Workflow for Translator Collaboration
-
-1.  **Prepare Source Images**
-    *   Create project with original images
-    *   Run Batch OCR
-
-2.  **Export for Translation**
-    *   Click **Import/Export Menu** → **"Export OCR Results"**
-    *   Select **For-Translate (XML)** format
-    *   Choose "Original" profile
-    *   Save as `project_for_translate.xml`
-
-3.  **Send to Translator**
-    *   Provide XML file and optionally source images
-    *   Translator edits text within `<row_number>` tags
-
-4.  **Import Translations**
-    *   Receive translated XML file
-    *   Click **Import/Export Menu** → **"Import Translation File"**
-    *   Select the translated file
-    *   Choose **"Create New Profile"** and name it (e.g., "Translator A")
-
-5.  **Review and Style**
-    *   Switch to the translation profile
-    *   Review translations in context on images
-    *   Adjust text box styles as needed
-    *   Export rendered images
-
-### Tips for Collaboration
-
-*   **Clear Instructions**: Tell translators to only edit text between tags, not XML structure
-*   **Version Control**: Number translation rounds ("Translation v1", "Translation v2")
-*   **Communication**: Mark unclear text in the "Original" profile for translator reference
-*   **Quality Check**: Always review imported translations before final export
-
-### Alternative: Screenshot Method
-
-For translators without XML comfort:
-
-1. Export rendered images with Original text
-2. Translator marks up images with corrections
-3. You manually input corrections into "User Edit" profile
+**Tips:** Number rounds ("Translation v1/v2"). If XML scares them: export pictures with Original words, let them mark up the pictures, and you type fixes into your edit profile.
 
 ---
 
-## Quality-Focused Workflow
+## Quality-Focused (polished releases)
 
-For projects where accuracy and polish are critical.
+1.  **Prep:** Use the cleanest source images you have.
+2.  **First pass:** Run detection with defaults. Expect good, not perfect.
+3.  **Review page by page.** Check low-confidence rows first — they're usually the ones needing love.
+4.  **Manual pass:** Add tiny/styled/busy-background text with Manual select.
+5.  **Edit:** Fix mistakes, join split sentences (`Ctrl+G`, same image + neighbors only), delete junk.
+6.  **Translate:** Translate, then read *every* line in context. Re-try selected lines that sound off.
+7.  **Style:** Perfect one bubble → save as Preset → apply to siblings → fine-tune.
+8.  **Final check:** Flip through profiles, export one test picture at full size, adjust, then export all as PNG.
+9.  **Save:** `Ctrl+S`, plus `Save As` checkpoints.
 
-### Workflow
-
-1.  **Pre-Processing**
-    *   Clean source images if possible (noise reduction, straightening)
-    *   Ensure good contrast between text and background
-
-2.  **Initial OCR**
-    *   Run Batch OCR with default settings
-    *   Don't expect perfection - this is a first pass
-
-3.  **Systematic Review**
-    *   Go through images one by one
-    *   In Advanced Mode, sort by Confidence column
-    *   Review all low-confidence results first
-
-4.  **Manual OCR Pass**
-    *   Add missed text areas
-    *   Focus on: small text, stylized fonts, text on busy backgrounds
-
-5.  **Editing Phase**
-    *   Correct all OCR errors
-    *   Combine split text boxes (Ctrl+G) where needed
-    *   Delete misdetections
-
-6.  **Translation Phase**
-    *   Use AI translation
-    *   Review and edit all translated text
-    *   Compare with Original profile for context
-
-7.  **Styling Phase**
-    *   Style one text box perfectly
-    *   Save as Preset
-    *   Apply preset to similar text boxes
-    *   Fine-tune individual boxes as needed
-
-8.  **Final Review**
-    *   Switch through all profiles to verify
-    *   Export test image and review at full resolution
-    *   Make final adjustments
-
-9.  **Export**
-    *   Save project (Ctrl+S)
-    *   Export rendered images in highest quality format (PNG)
-
-### Tips for Quality Work
-
-*   **Take Breaks**: OCR review is tiring - errors increase with fatigue
-*   **Zoom In**: Check text boxes at full zoom to catch alignment issues
-*   **Compare Side-by-Side**: Open original image in another viewer for reference
-*   **Save Iterations**: Use "Save As" at major milestones
+**Tips:** Take breaks — tired eyes miss things. Zoom to full size for alignment. Keep originals backed up separately.
 
 ---
 
-## Emergency Recovery Workflow
+## When Something Goes Wrong
 
-When things go wrong (corrupted file, accidental deletion, etc.).
+### Project won't open
 
-### If Project Won't Open
+1.  Find the `.mmtl`.
+2.  Copy it, rename the copy to `.zip`, and peek inside — your images should be there.
+3.  Make a fresh project with the same images, then re-do detection or bring back words from an export if you have one.
 
-1.  **Locate the .mmtl file**
-2.  **Rename to .zip** and extract:
-    ```
-    project.mmtl → project.zip → extract
-    ```
-3.  **Check contents**:
-    *   `images/` folder should contain your images
-    *   `master.json` contains OCR data (can be opened in text editor)
-    *   `meta.json` contains project settings
-4.  **Create New Project** with same images
-5.  **Manual Recovery**: Extract text from `master.json` and re-import
+### Deleted something important
 
-### If You Deleted Something Important
+1.  Haven't saved yet? Close without saving and reopen.
+2.  Check the **Original** profile — your raw results are still there.
+3.  Re-run detection on that spot, or re-add with Manual select.
 
-1.  **Check if saved**: If you haven't saved since deletion, close without saving and reopen
-2.  **Check Original profile**: Deleted rows may still exist in "Original" profile
-3.  **Re-run OCR**: For deleted OCR results, re-run batch or manual OCR
+### Avoid it next time
 
-### Preventive Measures
-
-*   Save frequently (Ctrl+S habit)
-*   Use "Save As" to create checkpoints (e.g., `project_backup_v1.mmtl`)
-*   Keep source images backed up separately
-*   Export rendered images at milestones
+*   `Ctrl+S` often. `Save As` checkpoints (`..._v1.mmtl`, `..._v2.mmtl`).
+*   Keep source images backed up separately.
+*   Export finished pictures at milestones.
 
 ---
 
-## Summary Table
+## At a Glance
 
-| Workflow | Best For | Key Features |
+| Workflow | Best For | Key Tools |
 |----------|----------|--------------|
-| Webtoon | Long vertical strips | Stitch/Split tools |
-| Multi-Chapter | Series/volumes | Template projects, consistent naming |
-| Quick OCR | Text extraction only | Fast export, minimal editing |
-| Collaboration | External translators | XML export/import |
-| Quality-Focused | Professional releases | Systematic review, styling |
-| Emergency Recovery | Corrupted files | Manual extraction, backup strategies |
-
-Choose the workflow that matches your project needs, or mix and match techniques from different workflows.
+| Webtoon | Long strips | Stitch / Split |
+| Multi-Chapter | Series | Template project, clear names |
+| Quick Words | Text only | Fast export, skip styling |
+| With Translator | Teamwork | XML export / import as new profile |
+| Quality | Polished releases | Page-by-page review + presets |
+| Rescue | Oops moments | Backups + peek-inside-zip |

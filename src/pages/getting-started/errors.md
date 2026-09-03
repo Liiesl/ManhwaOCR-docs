@@ -9,302 +9,116 @@ order: 5
 
 This page provides solutions for common issues you may encounter while installing or running EasyScanlate.
 
-## GUI Library Conflict: PySide6 vs. PyQt5
+---
 
-This is the most common issue for users running the application from source code.
+## The app won't start
 
-#### Symptoms
+**What you see:** Nothing happens, or it closes right away.
 
-When you launch the application using `python main.py`, it immediately shows an error dialog with the title "Dependency Error" and the message "Incorrect GUI Library Detected."
+**Try this:**
 
-#### Cause
-
-EasyScanlate is built using the **PySide6** library for its graphical user interface. This error occurs if your Python environment has the conflicting **PyQt5** library installed. The two cannot coexist and the application is designed to safely exit instead of crashing.
-
-#### Solution
-
-The application displays a helpful error dialog that explains the problem. To fix this, you must uninstall `PyQt5` and install `PySide6`.
-
-1.  The error dialog features a **"Copy Commands"** button. Click it to copy the required commands to your clipboard.
-2.  Open your terminal or Command Prompt.
-3.  Paste and run the commands:
-    ```bash
-    pip uninstall PyQt5
-    pip install pyside6
-    ```
-4.  Once the commands have finished, try launching the application again with `python main.py`. It should now start correctly.
+1.  Did you add the antivirus exclusion *before* first launch? If not, your antivirus may have removed the app file. See [Installation](/getting-started/installation#crucial-step-add-antivirus-exclusion-before-first-launch). Reinstall, add the exclusion, then launch again.
+2.  Try a fresh install from the latest release on [GitHub](https://github.com/Liiesl/EasyScanlate/releases).
+3.  Restart your computer (seriously, it helps more often than you'd think).
 
 ---
 
-## Missing Dependencies
+## Models won't download / get stuck
 
-#### Symptoms
+**What you see:** The Welcome wizard or Manage Models shows a download that never finishes or says "Failed" with a Retry button.
 
-The application fails to start with `ImportError` or `ModuleNotFoundError` messages in the console, such as:
-- `ModuleNotFoundError: No module named 'PySide6'`
-- `ModuleNotFoundError: No module named 'rapidocr'`
-- `ModuleNotFoundError: No module named 'PIL'`
+**Try this:**
 
-#### Cause
+1.  Check your internet connection.
+2.  Click **Retry** next to the failed item.
+3.  If it keeps failing, close and reopen the app, then go to `Settings` → `General` → `Replay onboarding` to try again.
+4.  Running low on disk space? Free up a little room and retry.
 
-Required Python packages are not installed in your environment.
-
-#### Solution
-
-Install all required dependencies using the provided requirements file:
-
-```bash
-pip install -r requirements.txt
-```
-
-Key dependencies include:
-- **PySide6** - GUI framework
-- **rapidocr** - OCR engine for text recognition
-- **pillow** - Image processing
-- **numpy** - Numerical operations
-- **opencv-python** - Computer vision operations
-- **google-genai** or **neverliie-ai-sdk** - AI translation services
-- **qtawesome** - Icon library
+> **Good to know:** Downloads pick up where they left off — you don't start from zero.
 
 ---
 
-## Project Load Errors
+## Project won't open
 
-### Missing Images Directory
+**What you see:** "Failed to load project" or the images list is empty.
 
-#### Symptoms
+**Try this:**
 
-Error message: "Failed to load project: The 'images' directory is missing in the project file."
-
-#### Cause
-
-The `.mmtl` project file is corrupted or was not created properly. The project file is a ZIP archive that must contain an `images/` folder.
-
-#### Solution
-
-- If the project was created by EasyScanlate, it may be corrupted. Try restoring from a backup.
-- If manually creating a project, ensure the ZIP structure follows the format:
-  ```
-  project.mmtl (ZIP archive)
-  ├── images/
-  │   └── (your image files)
-  ├── master.json
-  └── meta.json
-  ```
-
-### Corrupted Project Files
-
-#### Symptoms
-
-Error messages when opening a project:
-- "Failed to load project" with JSON-related errors
-- Project opens but shows no images or OCR results
-- Application crashes when loading specific projects
-
-#### Cause
-
-- `master.json` or `meta.json` files are corrupted or contain invalid JSON
-- The `.mmtl` file is incomplete or was modified externally
-
-#### Solution
-
-1. Create a new project and re-import your images
-2. If you have backups, restore from a working version
-3. The project files are ZIP archives - you can extract and inspect `master.json` and `meta.json` for corruption
+*   The `.mmtl` file may have been moved or renamed. Use `Open Project` and browse to it again.
+*   If the file is damaged, try a backup copy if you have one (`Save As` checkpoints are great for this).
+*   Advanced peek: `.mmtl` files are zip files. You can copy yours, rename the copy to `.zip`, and look inside to check your images are still there. Then create a fresh project with the same images.
 
 ---
 
-## OCR Errors
+## Text detection gives errors or finds nothing
 
-### OCR Initialization Error
+**What you see:** Pressing `Process OCR` shows an error, or finishes with no boxes.
 
-#### Symptoms
+**Try this:**
 
-Error dialog with "OCR Initialization Error" when trying to run OCR.
+1.  Make sure models finished downloading (see above).
+2.  Restart the app and try again on one image first.
+3.  If images are huge, try a smaller test image to rule out memory issues.
+4.  Tweak [detection settings](/user-manual/settings/) — for example lower the confidence bar a little, or widen the min/max text height. Start small and try again.
 
-#### Cause
+### A selected area won't read
 
-- The RapidOCR engine failed to initialize
-- Missing or corrupted OCR model files
-- Insufficient memory for OCR operations
-
-#### Solution
-
-1. Ensure all dependencies are installed: `pip install rapidocr numpy pillow`
-2. Restart the application
-3. If the error persists, try reducing the image size or adjusting the resize threshold in settings
-
-### Manual OCR Error
-
-#### Symptoms
-
-Error when using the manual OCR selection feature: "Manual OCR Error" or "Selection area is invalid or outside image bounds."
-
-#### Cause
-
-- Selected area is too small or outside the image boundaries
-- The OCR reader is not properly initialized
-
-#### Solution
-
-1. Ensure you have selected a valid area on the image (drag to create a selection)
-2. The selection must be within the image boundaries
-3. Try selecting a larger area with more visible text
+*   Make sure your box is fully inside the image and not tiny.
+*   Draw a slightly bigger box with a little margin around the text and try again.
 
 ---
 
-## File I/O Errors
+## Saving fails / "Permission denied"
 
-### Permission Denied
+**What you see:** Saving the project or exporting images fails.
 
-#### Symptoms
+**Try this:**
 
-Error messages like:
-- "Permission denied" when saving projects
-- "Failed to save project" errors
-- Cannot create or modify `.mmtl` files
-
-#### Cause
-
-- The application doesn't have write permissions to the target directory
-- The file is open in another program
-- Antivirus software is blocking file operations
-
-#### Solution
-
-1. Run the application with appropriate permissions (not as administrator unless necessary)
-2. Ensure the target folder is not read-only
-3. Check if the file is open in another application
-4. Add an exception for EasyScanlate in your antivirus software
-5. Try saving to a different location (e.g., your Documents folder)
-
-### File Not Found
-
-#### Symptoms
-
-- "The project file could not be found" when opening from recent projects
-- Missing image files referenced in a project
-
-#### Cause
-
-- The project file was moved or deleted
-- Image files were moved after creating the project
-
-#### Solution
-
-1. Use File > Open to browse for the moved project file
-2. If images are missing, re-import them into a new project
-3. Recent projects list shows "Last opened" times - verify the file still exists at that location
+1.  Make sure the folder isn't read-only and the file isn't open in another program.
+2.  Try saving to your Documents folder.
+3.  Check your antivirus exclusion (see Installation) — it can block saving too.
 
 ---
 
-## Context Fill Errors
+## Translation says "API Key Missing" or fails
 
-#### Symptoms
+**What you see:** Translation won't start, or shows an API error.
 
-Error dialog with "Context Fill Error" or failure to apply context fill.
+**Try this:**
 
-#### Cause
-
-- Failed to process image regions for context fill
-- Memory issues with large images
-- Invalid coordinates for context fill regions
-
-#### Solution
-
-1. Try again with a smaller selection area
-2. Restart the application and retry
-3. Ensure the image is not corrupted
+1.  Go to `Settings` → `Translation`, pick your provider, and make sure your key is pasted in correctly (no extra spaces).
+2.  Make sure you've run text detection first — there's nothing to translate yet if the results list is empty.
+3.  Check your internet connection.
+4.  If it says rate limit / busy / unavailable, wait a bit and retry, or try a different model. Free tiers can be busy at peak times.
 
 ---
 
-## Import/Export Errors
+## Imports / exports look wrong
 
-#### Symptoms
-
-- "Import Error" when importing translation files
-- "Failed to apply translation" messages
-- JSON parsing errors during import
-
-#### Cause
-
-- The imported file is not in the expected format
-- JSON files are malformed
-- Missing required fields in the import data
-
-#### Solution
-
-1. Ensure import files follow the correct JSON format:
-   ```json
-   {
-     "filename.jpg": {
-       "1": "Translated text for row 1",
-       "2": "Translated text for row 2"
-     }
-   }
-   ```
-2. For master file imports, ensure the JSON is an array of OCR result objects
-3. Validate your JSON using an online JSON validator before importing
+*   **Import:** Make sure the file came from an EasyScanlate export (XML/TXT). Only edit the text between tags, not the tags themselves. If in doubt, validate it opens as text first.
+*   **Export:** Check you have write permission and enough disk space in the output folder.
 
 ---
 
-## General Application Errors
+## The app is slow
 
-### Unhandled Exceptions
+*   Close other heavy apps while running text detection.
+*   In `Settings`, a smaller max image size (e.g. `2000` → lower) speeds things up a lot on big images.
+*   Turn off extra automatics (like auto clean-up) if you want raw speed while testing.
 
-#### Symptoms
+---
 
-An error dialog appears with "Unhandled Exception" showing a traceback.
+## Updates won't check / download
 
-#### Cause
-
-Unexpected errors in the application code, often due to:
-- Edge cases in user input
-- Invalid data states
-- Threading issues
-
-#### Solution
-
-1. Click "Copy Traceback" to copy the error details
-2. Click "Report Issue to GitHub" to create a bug report with pre-filled details
-3. Include steps to reproduce the error in your report
-4. Restart the application and try again
-
-### Application Startup Error
-
-#### Symptoms
-
-Critical error during application startup before the main window appears.
-
-#### Cause
-
-- Corrupted application settings
-- Issues loading recent projects
-- System configuration problems
-
-#### Solution
-
-1. Check the console/terminal for detailed error messages
-2. Clear application settings (location varies by OS):
-   - Windows: `%APPDATA%/Liiesl/EasyScanlate`
-   - macOS: `~/Library/Preferences/Liiesl/EasyScanlate`
-   - Linux: `~/.config/Liiesl/EasyScanlate`
-3. Reinstall the application
+*   Check your internet, then try `Settings` → `General` → `Check for Updates` again later.
+*   You can always grab the newest installer manually from [GitHub releases](https://github.com/Liiesl/EasyScanlate/releases).
 
 ---
 
 ## Getting Help
 
-If you encounter an error not covered here:
+If it's not covered here:
 
-1. **Copy the Traceback**: Use the "Copy Traceback" button in error dialogs to get detailed error information
-2. **Report on GitHub**: Use the "Report Issue to GitHub" button to create a pre-filled issue
-3. **Check Your Version**: Include your app version (shown in error reports) when seeking help
-4. **Provide Steps to Reproduce**: Detail what you were doing when the error occurred
-
-The error dialog automatically collects:
-- Operating system and version
-- Application version
-- Python and PySide6 versions
-- Full error traceback
-- Git status (if running from source)
+1.  In any error dialog, use **Copy details** to grab what happened.
+2.  Check the [GitHub Issues](https://github.com/Liiesl/EasyScanlate/issues) page for similar problems.
+3.  Open a new issue with your app version, what you clicked, and what you expected. Screenshots help a lot!

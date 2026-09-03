@@ -5,79 +5,58 @@ description: Learn how to use batch and manual OCR, and configure OCR parameters
 order: 4
 ---
 
-# OCR Processing
+# Finding Text in Your Images
 
-The Easy Scanlate uses **RapidOCR** (based on PP-OCRv5) with separate Detection and Recognition engines to detect and extract text from your images. The engine uses ONNX Runtime for cross-platform compatibility. You can run OCR on all images at once (Batch OCR) or on specific, user-defined areas (Manual OCR).
+Easy Scanlate reads the text in your pages for you. Run it on everything at once, or just point at the bits it missed.
 
-## 1. Batch OCR
+> TODO screenshot: Start button + progress + boxes appearing on pages.
 
-This is the primary method for automatically extracting text from all images in your project.
+## 1. Automatic detection (Batch)
 
-1.  Load your project in the [Main Application Window](/user-manual/index/).
-2.  Click the `Process OCR` button in the Right Panel's top controls.
-3.  The `OCR Progress Bar` will show the status as images are processed.
-4.  Once complete, detected text boxes will appear on the images in the Left Panel, and the extracted text will populate the [Results Widget](/user-manual/text-editing/#the-results-widget).
+The main way to get text out of all your pages:
 
-## 2. Manual OCR
+1.  Open your project in the [Main Window](/user-manual/main-application-window/).
+2.  Click **Start** (text detection) in the right panel's top controls.
+3.  Watch the progress — you can press **Stop** any time.
+4.  When it's done, boxes appear on your pages, and the words show up in the [results list](/user-manual/text-editing/).
 
-Use Manual OCR to target specific areas that Batch OCR may have missed or to correct inaccurate detections.
+**Nice touches that happen automatically (you can turn them off in Settings):**
 
-1.  Click the `Manual OCR` toggle button in the Right Panel. Your cursor will change to a crosshair.
-2.  In the Left Panel, click and drag to draw a rectangle around the text you want to extract.
-3.  Release the mouse button. The tool will run OCR only on that selected region.
-4.  The new result will appear as a text box on the image and as a new entry in the [Results Widget](/user-manual/text-editing/). Manual OCR results are marked with the `is_manual` flag and assigned floating-point row numbers (e.g., `1.1`, `2.1`) to insert them between existing batch results based on their vertical position.
-5.  Click the `Manual OCR` toggle button again to exit Manual OCR mode.
+*   **Bubble finding:** The app spots speech bubbles and can quietly drop stray detections outside them (like sound effects it mistook for dialogue).
+*   **Style guessing:** New boxes can pick up a sensible look on their own.
+*   **Background clean-up:** Boxes on plain or gradient bubbles get tidied behind the text so your new words sit cleanly.
 
-## 3. OCR Parameters
+## 2. Manual select
 
-You can fine-tune the OCR engine's behavior in `Settings (Ctrl+,) > OCR Processing`. Adjusting these settings can significantly improve accuracy and performance for your specific project.
+For the bits automatic mode missed, or got wrong:
 
-*   **Minimum / Maximum Text Height:** Filters out text boxes based on their height in pixels. Useful for ignoring small, noisy text or large, non-dialogue text. Default: 40px (min) / 100px (max).
-*   **Minimum Confidence:** Sets a threshold for OCR results (0.0 to 1.0). Only text with a confidence score equal to or higher than this value will be included. Lowering this may reveal more text but can also introduce more errors. Default: 0.2.
-*   **Merge Distance Threshold:** The maximum pixel distance between two text boxes for them to be considered for merging. A higher value can help combine fragmented text but may incorrectly merge separate blocks. Default: 100 pixels.
-*   **OCR Adjust Contrast:** A pre-processing step that adjusts image contrast before sending it to the OCR engine. Can improve recognition on faint or dark images. The value is added to 1.0 to create an enhancement factor (e.g., 0.5 becomes 1.5x contrast). Set to `0.0` to disable. Default: 0.5.
-*   **OCR Resize Threshold (Max Width):** If an image's width exceeds this pixel value, it will be downscaled before processing. This can greatly speed up OCR on very large images but may reduce accuracy for very small text. Set to `0` to disable resizing. Default: 1024 pixels.
+1.  Click **Manual OCR** in the left toolbar. Your cursor becomes a crosshair, and a little "Manual OCR Mode" bar appears.
+2.  Drag a box around the text you want to read. You can draw more than one.
+3.  Release — the app reads just that spot.
+4.  The new box appears on the page and in the results list, tucked between its neighbors in reading order.
+5.  Click **Manual OCR** again (or close the mode bar) to go back to normal.
 
-Additionally, in `Settings > General`:
-*   **Auto Context Fill on Batch OCR:** If checked, the application will automatically apply context fill to detected text regions during Batch OCR and apply a transparent background style to results. This prepares images for text rendering but may slow down processing. Default: Off.
+## 3. Settings you might actually touch
 
-## 4. OCR Result Structure
+Find these in `Settings (Ctrl+,)` → text detection. Defaults work for most comics — tweak only if text is missed or you get junk boxes.
 
-Each OCR result is stored as a dictionary with the following fields:
+*   **Minimum / Maximum Text Height:** Ignores boxes smaller or taller than these pixel sizes. Handy for skipping tiny noise or giant titles. Default: 40px (min) / 100px (max).
+*   **Minimum Confidence:** How sure the app must be to keep a result (0.0 to 1.0). Lower finds more (plus more mistakes). Default: 0.7.
+*   **Merge nearby boxes:** How close two boxes must be to count as one line. Raise a little if sentences get split; lower if separate bubbles get glued together. Default: 0.5.
+*   **Max image size:** Big images are gently shrunk before reading to stay fast. Lower = faster, but tiny text may suffer. Default: 2000px on the long side.
+*   **Parallel workers:** How many pages are read at once. Default: 2. Lower it if your computer struggles.
 
-| Field | Type | Description |
-|-------|------|-------------|
-| `row_number` | int or float | Unique identifier for ordering. Batch OCR uses integers (1, 2, 3...). Manual OCR uses floats (1.1, 2.1...) to insert between existing results. |
-| `coordinates` | List[[x, y]] | Four corner points of the text bounding box: `[[x1,y1], [x2,y2], [x3,y3], [x4,y4]]`. |
-| `text` | str | The extracted text content. |
-| `confidence` | float | OCR confidence score (0.0 to 1.0). |
-| `filename` | str | The source image filename. |
-| `is_manual` | bool | `True` if added via Manual OCR, `False` if from Batch OCR. |
-| `translations` | dict | Stores translated versions of the text, keyed by profile name. |
-| `custom_style` | dict (optional) | Applied when Auto Context Fill is enabled, sets transparent background (`{'bg_color': '#00000000'}`). |
+And in `Settings` → `General`:
 
-Results are sorted vertically (top-to-bottom) based on the minimum y-coordinate of their bounding boxes.
+*   **Auto clean-up after detection:** Tidy behind new text automatically. Lovely results, slightly slower. Default: On.
+*   **Ignore sound-effects outside bubbles:** Drop stray detections that aren't in bubbles. Default: On.
 
-## 5. OCR Processing Pipeline
+## 4. How it works (short version)
 
-The OCR engine follows this pipeline for each image:
+How it works: the app finds text areas, reads each one, then tidies up — filtering by size and confidence, joining bits that belong together, and sorting top to bottom.
 
-1. **Image Preprocessing**
-   - Convert to RGB mode if needed
-   - Apply contrast enhancement if enabled (`ocr_adjust_contrast`)
-   - Resize if image width exceeds threshold (`ocr_resize_threshold`)
+**Tips:**
 
-2. **Detection Phase**
-   - Uses PP-OCRv5 Mobile Detection model (`ch_PP-OCRv5_mobile_det.onnx`)
-   - Detects text regions in the image
-
-3. **Recognition Phase**
-   - Each detected region is cropped using perspective transformation
-   - Uses Korean PP-OCRv5 Recognition model (`korean_PP-OCRv5_rec_mobile_infer.onnx`)
-   - Korean dictionary (`korean_dict.txt`) for text recognition
-
-4. **Post-Processing**
-   - Scale coordinates back to original image dimensions (if resized)
-   - Filter results by text height and confidence thresholds
-   - Merge nearby text boxes based on distance threshold
-   - Sort results vertically (top-to-bottom)
+*   Try defaults first on 2–3 pages before changing settings.
+*   Faint or dark pages? Try a cleaner source image — that beats any slider.
+*   Still missing styled or tiny text? Add it with Manual select rather than cranking settings to extremes.

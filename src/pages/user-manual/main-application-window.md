@@ -7,73 +7,68 @@ order: 2
 
 # The Main Application Window
 
-Once a project is loaded, the Main Application Window becomes your primary workspace. It features a three-column layout designed for an efficient workflow.
+Once a project is open, the Main Application Window is where you'll spend most of your time. It's laid out so you can see your pages, read the found text, and fix things up without hunting around.
 
-<img src="/assets/Screenshot 2025-09-27 014312.png" alt="Easy Scanlate Main Application Window" width="700">
+> TODO screenshot: new main window (left toolbar + center pages + right panel + tabs on top).
 
-## Layout Overview
+## Tabs and layout
 
-The main window is divided into three sections:
-1. **Left Vertical Toolbar** - Quick access to tools and modes
-2. **Center Panel (Image View)** - Displays project images with interactive text boxes
-3. **Right Panel (Control & Edit View)** - OCR results, text styling, and translation tools
+*   **Tabs on top:** Home is always the first tab. Opening another `.mmtl` file opens a new tab, so you can switch between projects without closing anything.
+*   **Three areas below:**
+    1. **Left toolbar** — quick tools.
+    2. **Center (Image View)** — your pages with text boxes on top.
+    3. **Right panel** — find text, style it, and translate it.
 
-## Left Vertical Toolbar
+## Left toolbar
 
-A VS Code-style vertical toolbar on the far left provides quick access to primary tools:
+Quick access to the tools you'll use a lot:
 
-*   **Settings (cog icon):** Opens the application [settings dialog](../settings/).
-*   **Manual OCR:** Toggles [Manual OCR mode](../ocr-processing/#manual-ocr) for selecting specific regions to OCR.
-*   **Toggle Text Visibility:** Show or hide all text boxes overlaid on the images.
-*   **Context Fill Menu:** Access Context Fill options (Context Fill Mode, Edit Context Fills, Toggle Fill Visibility).
-*   **Split Images:** Start the [image splitting](../image-manipulation/#splitting-images) workflow.
-*   **Stitch Images:** Start the [image stitching](../image-manipulation/#stitching-images) workflow.
+*   **Settings (cog icon):** Opens [settings](../settings/).
+*   **Manual OCR:** Lets you draw a box around text the automatic run missed. You can select more than one area.
+*   **Manual clean-up:** Paint over text to clean the background before placing new text.
+*   **Show / hide text:** Hides the boxes so you can admire the art underneath.
+*   **Split / Stitch:** [Combine or divide pages](../image-manipulation/).
 
-## Center Panel (Image View)
+## Center (Image View)
 
-The Image View displays your project's images sequentially. This is an interactive canvas where OCR-detected text boxes are rendered directly on the images.
+Your pages, top to bottom. The boxes on top are interactive:
 
-*   **Image Area**
-    *   **Navigation:** Use your mouse wheel or the scrollbar to move through the images.
-    *   **Text Box Interaction:**
-        *   **Select:** Click a text box to select it. It will be highlighted with a blue frame, and its properties will load in the Right Panel.
-        *   **Move:** Drag a selected text box to reposition it.
-        *   **Resize:** Drag the handles on the corners and sides of a selected text box.
-        *   **Rotate:** Drag the rotation handle (circular arrow) above a selected text box.
-        *   **Perspective Transform:** Hold `Ctrl` while dragging a corner handle to apply perspective distortion.
-    *   **Overlay Controls:** A floating overlay at the bottom-left provides quick access buttons:
-        *   **Scroll to Top:** Instantly navigate to the beginning of your image list.
-        *   **Save Menu:** Opens a menu with options to save the project (.mmtl) or save rendered images.
-        *   **Scroll to Bottom:** Instantly navigate to the end of your image list.
+*   **Select:** Click a box to select it. It gets a highlight frame, and its text and style load in the right panel.
+*   **Move:** Drag a selected box to move it.
+*   **Resize:** Drag the little handles on the corners and sides.
+*   **Rotate:** Drag the round handle above the box.
+*   **Fine-tune corners:** Hold `Ctrl` while dragging a corner for perspective tweaks.
 
-<img src="/assets/images/image-view-with-controls.png" alt="Image View with Text Boxes and Overlay Controls" width="600">
-*(Placeholder: Replace with actual screenshot of the Image View with selected text box and overlay buttons)*
+Floating buttons help you get around long chapters:
 
-## Right Panel (Control & Edit View)
+*   **Jump to top / bottom** to zip through pages.
+*   **Save menu** to save your project (`.mmtl`) or save finished images.
 
-The Right Panel contains all the tools for managing your project's data, text, and styles. It uses splitters to allow resizing of its components.
+> TODO screenshot: Image View with a selected box + floating buttons.
 
-<img src="/assets/images/right-panel-overview.png" alt="Right Panel Overview" width="400">
-*(Placeholder: Replace with actual screenshot of the Right Panel)*
+## Right panel
 
-*   **Top Controls:**
-    *   **Process OCR / Stop OCR:** A combined toggle button that starts or stops the [batch OCR process](../ocr-processing/#batch-ocr). Includes a built-in progress indicator.
-    *   **Profile Selector:** A dropdown menu to switch between different [text profiles](../project-management/#managing-profiles) (e.g., Original, User Edit 1, Translations).
-    *   **Chat Toggle:** Show or hide the AI Translation chat widget.
-    *   **Import/Export Menu (three bars icon):** Opens a menu for [importing and exporting data](../import-export/).
+Everything about your words lives here. You can resize the sections by dragging the dividers.
 
-*   **Main Widgets:**
-    *   **Text Box Style Panel:** Located at the top of the results area, providing detailed [styling options](../text-box-styling/) for the selected text box. Can be resized vertically.
-    *   **Results Widget:** A table of all OCR text entries for detailed [editing and management](../text-editing/). Can be resized vertically relative to the style panel.
-    *   **Translation Chat Widget:** An AI-powered [translation assistant](../ai-translation/) that can be shown/hidden via the chat toggle button. Appears to the right of the results widget when enabled.
+*   **Top controls:**
+    *   **Start / Stop text detection:** Runs automatic text-finding on all pages, with progress. Press again to stop.
+    *   **Profile picker:** Switch between versions of your text (e.g. Original, your edits, translations). See [Project Management](../project-management/).
+    *   **Chat toggle:** Shows or hides the translation panel.
+    *   **Import / Export menu:** For [moving text in and out](../import-export/).
+*   **Main sections:**
+    *   **Style panel:** How the selected box looks — fonts, colors, background, shape. See [Styling](../text-box-styling/).
+    *   **Results list:** Every piece of found text, ready to [edit](../text-editing/).
+    *   **Translation panel:** Pick a language, translate, and re-try just the lines you select. See [AI Translation](../ai-translation/).
+
+> TODO screenshot: right panel with style + results + translation visible.
 
 ## Menu Bar
 
-The application menu bar at the top of the window provides access to all major functions.
+The menu at the top mirrors the buttons, in case you prefer menus or shortcuts:
 
-*   **Files:** Manage projects (`New`, `Open`, `Import from WFWF`), import/export data, save projects (`Save`, `Save As`), and exit the application.
-*   **Edit:** Access tools like `Find/Replace`.
-*   **Process:** Access primary workflows like `Start/Stop OCR`, `Manual OCR Mode`, `Context Fill Mode`, `Edit Context Fills`, `Split Images`, and `Stitch Images`.
-*   **View:** Toggle interface options including `Translation Chat`, `Profiles` submenu, `Toggle Text Visibility`, `Toggle Context Fill Visibility`, and `(Legacy) Advanced Mode`.
+*   **File:** `New`, `Open`, `Save`, `Save As`, import/export, and exit.
+*   **Edit:** Helpers like find/replace when available.
+*   **Process:** Start/stop text detection, manual select, clean-up, split and stitch.
+*   **View:** Show/hide translation panel, profiles, and text overlays.
 
-**Note:** Settings can be accessed via the Settings (cog) button in the left vertical toolbar.
+**Tip:** Settings lives in the left toolbar (cog) or `Ctrl+,`.

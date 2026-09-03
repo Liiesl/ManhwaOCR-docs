@@ -7,97 +7,67 @@ order: 10
 
 # Settings
 
-Access the application settings by clicking the `Settings` (cog icon) button in the left vertical toolbar or by selecting `Settings (Ctrl+,)` from the menu bar. The settings dialog is organized into tabs for easy configuration.
+Open settings with the **cog icon** in the left toolbar, or `Ctrl+,`. It's organized into tabs. Most defaults are fine — change things only if you have a reason.
+
+> TODO screenshot: Settings dialog with tabs visible.
 
 ## 1. General
 
-General application preferences and update settings.
+Everyday preferences and updates.
 
-*   **Show delete confirmation dialog:** If checked, a confirmation dialog appears before you [delete a row](/user-manual/text-editing/#4-deleting-rows). Uncheck this to delete rows instantly.
-*   **Use GPU for OCR (if available):** Enables GPU acceleration for OCR (requires a CUDA-enabled NVIDIA GPU). This provides a major speed boost. Restart may be needed after changing this setting.
-*   **Auto Context Fill on Batch OCR:** Automatically apply context fill during Batch OCR. Can improve text rendering but may slow processing.
-*   **Auto-check for updates on startup:** Automatically check for new application versions when the app starts.
+*   **Confirm before deleting:** Show a "are you sure?" before removing text. Turn off to delete instantly.
+*   **Auto-detect style for new text:** Let the app guess a fitting look for each new box. Default: On (recommended).
+*   **Auto clean-up after detection:** Tidy the background behind new text so your words sit cleanly. Default: On. Turn off for raw speed while testing.
+*   **Ignore sound-effects outside bubbles:** Quietly drop stray detections that aren't inside bubbles. Default: On.
+*   **Which clean-up to use automatically:** `Auto (recommended)` picks the right method per bubble. `Fast` is instant, `Best quality` is slower but nicer on tricky art (downloads once).
+*   **Appearance:** Tweak the animated background color and feel. Just for fun — doesn't affect your pages.
+*   **Text size of the app itself:** Makes buttons and lists bigger/smaller, like a zoom for the interface.
+*   **Replay onboarding:** Re-opens the first-run wizard (handy to re-fetch models or change early choices).
 
-### Application Updates
+### Updates
 
-This section displays the current application version and provides update controls:
+Shows your current version:
 
-*   **Check for Updates:** Manually check if a new version is available.
-*   **Download Update:** Downloads the latest update when available.
-*   **Restart & Update:** Restarts the application and applies the downloaded update.
-
-*Note: Update functionality is only available for compiled versions of the application, not when running from source.*
+*   **Check for Updates / Download / Restart & Update.** The app checks on start (you can turn that off) and restarts to finish installing.
 
 ### Quick Links
 
-*   **Request a Feature:** Opens GitHub to submit a feature request.
-*   **Read Documentation:** Opens the online documentation at [docs.easyscanlate.site](https://docs.easyscanlate.site/).
+*   **Request a Feature / Read Documentation** — jump to GitHub or these docs.
 
-## 2. Appearance
+## 2. Text Detection
 
-Customize the application's visual appearance.
+These tune how picky the finder is. See [Finding Text](/user-manual/ocr-processing/) for when to touch them.
 
-*   **Background Editor:** Adjust the animated aurora background colors and effects. Modify the color palette to match your preferences.
+*   **Minimum / Maximum Text Height** — ignore boxes smaller/taller than this. Default: 40px / 100px.
+*   **Minimum Confidence** — how sure the app must be to keep a result (0–1). Default: 0.7. Lower = more boxes, more mistakes.
+*   **Merge nearby boxes** — how close boxes must be to join up. Default: 0.5. Nudge up if sentences split; down if bubbles glue together.
+*   **Max image size** — shrink huge images before reading for speed. Default: 2000px on the long side.
+*   **Parallel workers** — how many pages are read at once. Default: 2.
 
-## 3. OCR Processing
+## 3. Clean-up (Manual tool)
 
-These settings control the behavior of the OCR engine. Fine-tuning them can significantly impact performance and accuracy.
+For when you paint clean-ups by hand:
 
-*   **Minimum Text Height:** Filters detected text boxes based on their minimum vertical pixel size.
-    *   *Default: 40px*
-*   **Maximum Text Height:** Filters detected text boxes based on their maximum vertical pixel size.
-    *   *Default: 100px*
-*   **Minimum Confidence:** The minimum confidence score (from 0.0 to 1.0) an OCR result must have to be included.
-    *   *Default: 0.2*
-*   **Merge Distance Threshold:** The maximum pixel distance for automatically merging nearby text boxes.
-    *   *Default: 100px*
-*   **OCR Adjust Contrast:** A factor applied to image contrast before OCR (0.0 to 1.0). Set to `0.0` to disable. May help or hurt depending on image quality.
-    *   *Default: 0.5*
-*   **OCR Resize Threshold (Max Width):** Downscales images wider than this pixel value before OCR to improve speed. Set to `0` to disable resizing.
-    *   *Default: 1024px*
+*   **Method:** `Fast` (instant, no download) or `Best quality` (needs a one-time download, better on complex art).
+*   **Brush softness (radius):** How soft the fix blends in. Default: 5. Small changes go a long way.
 
-## 4. Translations
+## 4. Translation
 
-Configure your credentials for using the [AI Translation](/user-manual/ai-translation/) feature. Supports multiple translation providers.
+Where you connect AI services. See [AI Translation](/user-manual/ai-translation/) for the walkthrough.
 
-### Provider Selection
+*   **Pick a provider, paste your key, pick a model.** The app remembers it, so you only do this once per provider.
+*   **Show free models only:** Tick to hide paid models in the picker.
+*   **Manage Models:** Hide models you never use so the list stays short. Hidden ones can be shown again any time.
+*   **Target Language:** English, Korean, Japanese, Chinese (Simplified / Traditional), Spanish, French, German, Italian, Portuguese, Russian, Thai, Vietnamese...
 
-*   **Provider:** Choose between `Gemini` (Google) or `Mistral` AI for translations.
+> **Tip:** Start with a recommended provider in the list — they're marked as easiest to try or best quality. Local options (Ollama / vLLM / llama.cpp) need no key, just a running address on your computer.
 
-### Gemini Settings
+## 5. Shortcuts
 
-Used when Provider is set to `Gemini`.
+Change the keys for things you do a lot:
 
-*   **Gemini API Key:** Your personal API key from [Google AI Studio](https://ai.google.dev/).
-*   **Gemini Model:** The specific Gemini AI model to use for translations:
-    *   `gemini-2.5-flash` - 250 req/day (free tier)
-    *   `gemini-2.5-pro` - 100 req/day (free tier)
-    *   `gemini-2.5-flash-lite` - 1000 req/day (free tier)
-    *   `gemini-2.0-flash` - 200 req/day (free tier)
-    *   `gemini-2.0-flash-lite` - 200 req/day (free tier)
-    *   `gemma-3-27b-it` - 14400 req/day
-    *   `gemma-3n-e4b-it` - 14400 req/day
-
-### Mistral Settings
-
-Used when Provider is set to `Mistral`.
-
-*   **Mistral API Key:** Your API key from [Mistral AI](https://mistral.ai/).
-*   **Mistral Model:** The model to use for translations:
-    *   `mistral-small-latest` - Fast, cost-effective
-    *   `mistral-medium-latest` - Balanced performance
-    *   `mistral-large-latest` - Most capable
-
-### Target Language
-
-*   **Target Language:** The language to translate text into. Options include:
-    *   English, Japanese, Chinese (Simplified), Korean, Spanish, French, German, Bahasa Indonesia, Vietnamese, Thai, Russian, Portuguese
-
-## 5. Keyboard Shortcuts
-
-Customize keyboard shortcuts for common actions.
-
-*   **Combine Rows Shortcut:** The key combination to open the [Combine Rows dialog](/user-manual/text-editing/#3-combining-rows).
-    *   *Default: Ctrl+G*
-*   **Find/Replace Shortcut:** The key combination to open the [Find/Replace widget](/user-manual/text-editing/#5-findreplace-widget).
-    *   *Default: Ctrl+F*
+*   **Combine rows** — Default: `Ctrl+G`
+*   **Find / Replace** — Default: `Ctrl+F`
+*   **Settings** — `Ctrl+,`
+*   **Save** — `Ctrl+S`
+*   **Translate** — `Ctrl+Enter` (in the translation panel)

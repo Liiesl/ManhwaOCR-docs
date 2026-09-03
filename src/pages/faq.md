@@ -13,57 +13,70 @@ Got questions? We've got answers. Here are some common things people ask about E
 
 ### **Is Easy Scanlate free?**
 
-Yep, it's completely free! Easy Scanlate is an open-source project. If you're curious, you can check out the source code on [GitHub](https://github.com/Liiesl/EasyScanlate).
+Yep, it's completely free! Easy Scanlate is an open-source project. If you're curious, you can check out the code on [GitHub](https://github.com/Liiesl/EasyScanlate).
 
-### **What operating systems does it work on?**
+### **What computers does it work on?**
 
-Currently, there are installers available for Windows 10 and 11. If you're on a Mac or Linux, you'll need to run it from the source code.
+There are easy installers for **Windows 10 and 11**. On Mac or Linux, build it from source (see [Installation](/getting-started/installation/)). Once running, everything works the same.
 
-## Troubleshooting
+### **Do I need an AI key to use it?**
+
+Nope. Finding and editing text works with no key at all. You only need a key if you want built-in AI translation — and you can add that later from Settings.
+
+## First run
 
 ### **Q: The app won't open. What do I do?**
 
-First, a fresh install usually fixes things. Try uninstalling and then reinstalling the app. Before you run it for the first time, make sure to add the installation folder to your antivirus's exclusion list. You can find a step-by-step guide on how to do that right here: [Installation](/getting-started/installation#crucial-step-add-antivirus-exclusion-before-first-launch).
+First, a fresh install usually fixes things. Reinstall, and *before* first launch add the app folder to your antivirus exclusions. Step-by-step here: [Installation](/getting-started/installation#crucial-step-add-antivirus-exclusion-before-first-launch).
 
-If you're still having trouble, please let us know by opening an issue on our [GitHub page](https://github.com/Liiesl/EasyScanlate/issues).
+Still stuck? Tell us via [GitHub issues](https://github.com/Liiesl/EasyScanlate/issues).
 
-### **Q: Why isn't some of the text being detected?**
+### **Q: It asks to download things on first run?**
 
-This can happen when the default settings aren't a perfect match for the comic you're working on. While the standard settings work for most comics, some have unique layouts or text styles.
+Yes — the welcome wizard fetches what the app needs (finding text, bubbles, styles, clean-ups). It shows progress, resumes if interrupted, and only happens once. There's a Retry button if anything fails.
 
-To fix this, you may need to tweak the [OCR Settings](/user-manual/settings/#ocr-processing) to better match the style of your comic, or use [Manual OCR](/user-manual/ocr-processing/#manual-ocr) to select specific text areas.
+## Reading text
 
-### **Q: Can I use AI translation without a Google account?**
+### **Q: Why isn't some text found?**
 
-Yes! Easy Scanlate now supports both **Google Gemini** and **Mistral AI** providers.
+Defaults fit most comics, but artsy layouts, tiny print, or wild fonts may need help.
 
-**Mistral AI (Recommended):**
-*   **Limit:** 1 billion tokens per month on the free tier
-*   **Note:** Requires phone number verification during signup
-*   Get your key from [Mistral AI Console](https://console.mistral.ai/)
+Try tweaking [detection settings](/user-manual/settings/) a little, or use [Manual select](/user-manual/ocr-processing/) to draw a box around missed words.
 
-**Google Gemini:**
-*   **Limit:** 20 requests per model per day on the free tier
-*   Get your key from [Google AI Studio](https://ai.google.dev/)
+### **Q: It found sound effects I don't want?**
 
-Mistral is recommended for larger projects due to its significantly higher rate limit.
+Turn on **Ignore sound-effects outside bubbles** in Settings (on by default), or just trash those rows. Your Original stays safe underneath.
+
+## Translation
+
+### **Q: Can I translate without a Google account?**
+
+Yes! There are lots of built-in services, not just Google.
+
+*   **Easiest to try:** Marked in Settings — free models to test, no credit card to start.
+*   **Best quality in our tests:** Also has a free tier, no credit card needed. Free tiers can be busy, so retries are normal.
+*   Plus OpenAI, Anthropic, Mistral, and more — or run your own locally (Ollama / vLLM / llama.cpp) with no key.
+
+Get your key from your chosen provider's site, paste it in `Settings` → `Translation`, pick a model, and go. Limits and prices depend on the provider — check their site for what's current.
 
 ### **Q: What's the difference between profiles?**
 
-Profiles are different versions of your text. The **Original** profile contains the raw OCR text (read-only). When you edit text, it automatically creates or uses a **User Edit** profile. You can also create profiles from AI translations. This lets you compare different versions and choose the best one when exporting.
+Profiles are versions of your words. **Original** is the raw found text (kept safe). Editing makes/uses a **User Edit** profile. Translating makes profiles like "Mistral Translation (English)". Switch with the picker to compare, and export with the one you want baked onto pictures.
 
-### **Q: How do I save my translated images?**
+## Saving & files
 
-Click the **Save** button (floppy disk icon) in the overlay on the left side of the image view, then select "Save Rendered Images". Choose your output format (PNG, JPEG, or WebP) and which profile's text to render. The images will be saved with the translated text burned onto them.
+### **Q: How do I save my finished pictures?**
 
-### **Q: The text boxes don't look right on the images. How do I fix this?**
+Click **Save** over the pages → **Save Rendered Images**. Pick where, which format (PNG / JPEG / WebP + quality), and which profile's words to draw. See [Import & Export](/user-manual/import-export/).
 
-Use the [Text Box Styling panel](/user-manual/text-box-styling/) on the right side of the window. You can adjust fonts, colors, text stroke (outline), background fill, and even bubble shapes. Changes apply in real-time, so you can see the result immediately.
+### **Q: The boxes look off. How do I fix them?**
 
-### **Q: Can I combine multiple pages into one long image?**
+Click a box and use the [Style panel](/user-manual/text-box-styling/) on the right — font, size (leave Auto on!), colors, outline, background, bubble shape. It updates live. Save looks you love as **Presets** to reuse in one click.
 
-Yes! Use the **Stitch** button in the left vertical toolbar. Click on multiple images in the order you want them combined, then click "Confirm Stitch". This is great for webtoon-style comics.
+### **Q: Can I join pages into one long strip?**
 
-### **Q: Where are my projects saved?**
+Yes! **Stitch** in the left toolbar: click pages top to bottom → Confirm. Great for webtoons. **Split** does the reverse. See [Image Manipulation](/user-manual/image-manipulation/).
 
-Easy Scanlate uses **.mmtl files** (which are actually ZIP archives) to store projects. Each project contains the images, OCR results, profiles, and settings. You can find your recent projects on the Home Window, or open the .mmtl file directly from your file explorer.
+### **Q: Where are my projects?**
+
+Everything lives in **one `.mmtl` file** per project — images, words, versions, styles. Recent ones are on Home. Double-click any `.mmtl` in your files to open it (it opens a new tab if the app's already open). Back them up like any precious file.
